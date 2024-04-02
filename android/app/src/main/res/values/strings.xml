@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">photo-tool</string>
+    <string name="title_activity_main">photo-tool</string>
+    <string name="package_name">photo.tool</string>
+    <string name="custom_url_scheme">photo.tool</string>
+</resources>

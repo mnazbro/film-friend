@@ -1,7 +1,0 @@
-{
-  "name": "photo-tool",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "react-vite"
-}
