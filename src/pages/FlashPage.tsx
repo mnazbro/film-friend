@@ -3,10 +3,6 @@ import {
   AccordionDetails,
   AccordionSummary,
   Alert,
-  Button,
-  Card,
-  Collapse,
-  Divider,
   Grid,
   Paper,
   Stack,
@@ -148,13 +144,15 @@ export const FlashPage: FC = () => {
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
-            <TableCell>F-Stop</TableCell>
-            <TableCell>{`Distance (${watch("unit")})`}</TableCell>
+            <TableRow>
+              <TableCell>F-Stop</TableCell>
+              <TableCell>{`Distance (${watch("unit")})`}</TableCell>
+            </TableRow>
           </TableHead>
           <TableBody>
             {[1.8, 2.8, 4, 5.6, 8, 11, 16, 22].map((fstop) => {
               return (
-                <TableRow>
+                <TableRow key={fstop}>
                   <TableCell>{fstop}</TableCell>
                   <TableCell>
                     {Math.round(((multiplier * guideNumber) / fstop) * 100) /

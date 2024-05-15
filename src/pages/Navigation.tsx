@@ -24,7 +24,8 @@ import {
   Link as RouterLink,
   LinkProps as RouterLinkProps,
 } from "react-router-dom";
-import { ColorModeContext } from "../context/ColorModeContext";
+import { useAppDispatch } from "../store/hooks";
+import { setDarkMode } from "../store/appSlice";
 
 const RouterLinkWrapper = forwardRef<HTMLAnchorElement, RouterLinkProps>(
   function Link(itemProps, ref) {
@@ -34,8 +35,7 @@ const RouterLinkWrapper = forwardRef<HTMLAnchorElement, RouterLinkProps>(
 
 export const Navigation: FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const colorModeContext = useContext(ColorModeContext);
-  colorModeContext.toggleColorMode;
+  const dispatch = useAppDispatch();
   return (
     <>
       <AppBar elevation={1}>
@@ -53,7 +53,9 @@ export const Navigation: FC = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Photo Tool
           </Typography>
-          <Switch onChange={colorModeContext.toggleColorMode} />
+          <Switch
+            onChange={(value) => dispatch(setDarkMode(value.target.checked))}
+          />
         </Toolbar>
       </AppBar>
       <Toolbar />

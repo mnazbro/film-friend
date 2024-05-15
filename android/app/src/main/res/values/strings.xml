@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">photo-tool</string>
-    <string name="title_activity_main">photo-tool</string>
-    <string name="package_name">photo.tool</string>
-    <string name="custom_url_scheme">photo.tool</string>
+    <string name="app_name">Photo Tool</string>
+    <string name="title_activity_main">Photo Tool</string>
+    <string name="package_name">com.mnazbro.photo.tool</string>
+    <string name="custom_url_scheme">com.mnazbro.photo.tool</string>
 </resources>

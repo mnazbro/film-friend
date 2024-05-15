@@ -1,5 +1,5 @@
 import { Alert, Stack, TextField } from "@mui/material";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
 type FormInputs = {
@@ -25,7 +25,7 @@ export const CameraPage: FC = () => {
   const onSubmit: SubmitHandler<FormInputs> = (data) => {};
 
   return (
-    <Stack spacing={1}>
+    <Stack spacing={1} py={1}>
       <Alert severity="info">
         Manual flash calculates distance for you. Given input, check the table
         for correct exposure.

@@ -10,7 +10,7 @@ const initialState: AppState = {
 }
 
 export const appSlice = createSlice({
-  name: '',
+  name: 'app',
   initialState,
   reducers: {
     setDarkMode: (state, action: PayloadAction<boolean>) => {

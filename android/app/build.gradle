@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace "photo.tool"
+    namespace "com.mnazbro.photo.tool"
     compileSdk rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "photo.tool"
+        applicationId "com.mnazbro.photo.tool"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
