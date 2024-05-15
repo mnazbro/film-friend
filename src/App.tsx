@@ -5,7 +5,7 @@ import { RouterProvider } from "react-router";
 import { createBrowserRouter } from "react-router-dom";
 import { FlashPage } from "./pages/FlashPage";
 import { ColorModeContext } from "./context/ColorModeContext";
-
+import { CameraPage } from "./pages/CameraPage";
 
 const router = createBrowserRouter([
   {
@@ -14,7 +14,19 @@ const router = createBrowserRouter([
   },
   {
     path: "/flash",
-    element: <PageWrapper><FlashPage /></PageWrapper>,
+    element: (
+      <PageWrapper>
+        <FlashPage />
+      </PageWrapper>
+    ),
+  },
+  {
+    path: "/camera",
+    element: (
+      <PageWrapper>
+        <CameraPage />
+      </PageWrapper>
+    ),
   },
 ]);
 
@@ -23,7 +35,7 @@ export const App: FC = () => {
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+        setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
       },
     }),
     [],

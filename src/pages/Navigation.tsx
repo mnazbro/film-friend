@@ -1,13 +1,9 @@
 import { useState, type FC, forwardRef, useContext } from "react";
 import {
-  Box,
-  Container,
-  Button,
   AppBar,
   Toolbar,
   IconButton,
   Typography,
-  Stack,
   SwipeableDrawer,
   List,
   Grid,
@@ -16,7 +12,6 @@ import {
   Divider,
   Paper,
   Avatar,
-  useTheme,
   ListItemIcon,
   ListItemText,
   Switch,
@@ -40,7 +35,7 @@ const RouterLinkWrapper = forwardRef<HTMLAnchorElement, RouterLinkProps>(
 export const Navigation: FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const colorModeContext = useContext(ColorModeContext);
-  colorModeContext.toggleColorMode
+  colorModeContext.toggleColorMode;
   return (
     <>
       <AppBar elevation={1}>
@@ -58,20 +53,18 @@ export const Navigation: FC = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Photo Tool
           </Typography>
-          <Switch onChange={colorModeContext.toggleColorMode}/>
+          <Switch onChange={colorModeContext.toggleColorMode} />
         </Toolbar>
       </AppBar>
       <Toolbar />
-        <SwipeableDrawer
-          anchor="left"
-          open={isMenuOpen}
-          onOpen={() => setIsMenuOpen(true)}
-          onClose={() => setIsMenuOpen(false)}
-        >
-          <DrawerContent />
-        </SwipeableDrawer>
-
-
+      <SwipeableDrawer
+        anchor="left"
+        open={isMenuOpen}
+        onOpen={() => setIsMenuOpen(true)}
+        onClose={() => setIsMenuOpen(false)}
+      >
+        <DrawerContent />
+      </SwipeableDrawer>
     </>
   );
 };
@@ -111,6 +104,14 @@ const DrawerContent = () => {
               <FlashOnIcon />
             </ListItemIcon>
             <ListItemText>Flash</ListItemText>
+          </ListItemButton>
+        </ListItem>
+        <ListItem>
+          <ListItemButton component={RouterLinkWrapper} to="/camera">
+            <ListItemIcon>
+              <CameraIcon />
+            </ListItemIcon>
+            <ListItemText>Cameras</ListItemText>
           </ListItemButton>
         </ListItem>
       </List>
