@@ -57,7 +57,7 @@ export const Navigation: FC = () => {
           <Switch
             onChange={(value) => dispatch(setDarkMode(value.target.checked))}
           />
-          s
+        </Toolbar>
       </AppBar>
       <Toolbar />
       <SwipeableDrawer
@@ -106,10 +106,13 @@ const DrawerContent: FC<DrawerContentProps> = ({ onSelect }) => {
         <NavigationItem url="/camera" icon={<CameraIcon />} onClick={onSelect}>
           Camera
         </NavigationItem>
-        <NavigationItem url="/settings" icon={<SettingsIcon />} onClick={onSelect}>
+        <NavigationItem
+          url="/settings"
+          icon={<SettingsIcon />}
+          onClick={onSelect}
+        >
           Settings
         </NavigationItem>
-
       </List>
     </Paper>
   );
