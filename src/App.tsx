@@ -1,5 +1,5 @@
 import { useEffect, type FC } from "react";
-import { PageWrapper } from "./pages/PageWrapper";
+import { PageWrapper } from "./components/PageWrapper";
 import { ThemeProvider, createTheme, useMediaQuery } from "@mui/material";
 import { RouterProvider } from "react-router";
 import { createBrowserRouter } from "react-router-dom";
@@ -8,6 +8,7 @@ import { CameraPage } from "./pages/CameraPage";
 import { HomePage } from "./pages/HomePage";
 import { useAppDispatch, useAppSelector } from "./store/hooks";
 import { setDarkMode } from "./store/appSlice";
+import { SettingsPage } from "./pages/SettingsPage";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,14 @@ const router = createBrowserRouter([
     element: (
       <PageWrapper>
         <CameraPage />
+      </PageWrapper>
+    ),
+  },
+  {
+    path: "/settings",
+    element: (
+      <PageWrapper>
+        <SettingsPage />
       </PageWrapper>
     ),
   },

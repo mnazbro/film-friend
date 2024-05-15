@@ -1,58 +1,33 @@
-import { Alert, Stack, TextField } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemButton,
+  ListItemText,
+  Typography,
+} from "@mui/material";
 import { FC } from "react";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-
-type FormInputs = {
-  name: string;
-  filmSize: string;
-  shutterSpeeds: number[];
-  hasLightMeter: boolean;
-  lastTimeServiced?: Date;
-  notes: string;
-};
+import { useAppSelector } from "../store/hooks";
 
 export const CameraPage: FC = () => {
-  const { handleSubmit, control } = useForm<FormInputs>({
-    defaultValues: {
-      name: "",
-      filmSize: "",
-      shutterSpeeds: [],
-      hasLightMeter: false,
-      lastTimeServiced: undefined,
-      notes: "",
-    },
-  });
-  const onSubmit: SubmitHandler<FormInputs> = (data) => {};
-
+  const { cameras } = useAppSelector((state) => state.cameras);
   return (
-    <Stack spacing={1} py={1}>
-      <Alert severity="info">
-        Manual flash calculates distance for you. Given input, check the table
-        for correct exposure.
-      </Alert>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Controller
-          name="name"
-          control={control}
-          rules={{ required: true }}
-          render={({ field }) => (
-            <TextField label="Name" variant="outlined" fullWidth {...field} />
-          )}
-        />
-        <Controller
-          name="filmSize"
-          control={control}
-          rules={{ required: true }}
-          render={({ field }) => (
-            <TextField
-              label="Film Size"
-              variant="outlined"
-              fullWidth
-              {...field}
-            />
-          )}
-        />
-      </form>
-    </Stack>
+    <Box>
+      <Typography color="text.primary">
+        Contains a list of all your cameras
+      </Typography>
+      <List>
+        {cameras.map((camera, index) => (
+          <ListItemButton key={index}>
+            <ListItemAvatar>
+              <Avatar sx={{ bgcolor: "info.dark" }}>{camera.name[0]}</Avatar>
+            </ListItemAvatar>
+            <ListItemText>{camera.name}</ListItemText>
+          </ListItemButton>
+        ))}
+      </List>
+    </Box>
   );
 };
