@@ -1,4 +1,4 @@
-package photo.tool;
+package com.mnazbro.photo.tool;
 
 import com.getcapacitor.BridgeActivity;
 

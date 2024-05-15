@@ -1,14 +1,31 @@
-import { Accordion, AccordionDetails, AccordionSummary, Alert, Button, Card, Collapse, Divider, Grid, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Alert,
+  Grid,
+  Paper,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { FC, useEffect, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { NumericFormatCustom } from "./NumericFormatCustom";
 
 type FormInputs = {
-    guideNumber: string;
-    iso: string;
-    flashPower: string;
-    unit: "ft" | "m";
-}
+  guideNumber: string;
+  iso: string;
+  flashPower: string;
+  unit: "ft" | "m";
+};
 
 export const FlashPage: FC = () => {
   const [guideNumber, setGuideNumber] = useState<number>(1);
@@ -22,7 +39,7 @@ export const FlashPage: FC = () => {
     },
   });
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
-    setMultiplier(100 / parseInt(data.iso) * parseFloat(data.flashPower));
+    setMultiplier((100 / parseInt(data.iso)) * parseFloat(data.flashPower));
     setGuideNumber(parseInt(data.guideNumber));
   };
   useEffect(() => {
@@ -33,10 +50,13 @@ export const FlashPage: FC = () => {
   }, [handleSubmit, watch]);
 
   return (
-    <Stack spacing={1}>
-      <Alert severity="info">Manual flash calculates distance for you. Given input, check the table for correct exposure.</Alert>
+    <Stack spacing={1} py={1}>
+      <Alert severity="info">
+        Manual flash calculates distance for you. Given input, check the table
+        for correct exposure.
+      </Alert>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Accordion defaultExpanded >
+        <Accordion defaultExpanded>
           <AccordionSummary expandIcon={<ArrowDropDownIcon />}>
             <Stack
               direction="row"
@@ -106,7 +126,12 @@ export const FlashPage: FC = () => {
                     <TextField
                       label="Flash Power"
                       variant="outlined"
+                      type="text"
+                      inputMode="numeric"
                       fullWidth
+                      InputProps={{
+                        inputComponent: NumericFormatCustom as any,
+                      }}
                       {...field}
                     />
                   )}
@@ -119,15 +144,20 @@ export const FlashPage: FC = () => {
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
-            <TableCell>F-Stop</TableCell>
-            <TableCell>{`Distance (${watch("unit")})`}</TableCell>
+            <TableRow>
+              <TableCell>F-Stop</TableCell>
+              <TableCell>{`Distance (${watch("unit")})`}</TableCell>
+            </TableRow>
           </TableHead>
           <TableBody>
             {[1.8, 2.8, 4, 5.6, 8, 11, 16, 22].map((fstop) => {
               return (
-                <TableRow>
+                <TableRow key={fstop}>
                   <TableCell>{fstop}</TableCell>
-                  <TableCell>{Math.round((multiplier * guideNumber) / fstop * 100) / 100}</TableCell>
+                  <TableCell>
+                    {Math.round(((multiplier * guideNumber) / fstop) * 100) /
+                      100}
+                  </TableCell>
                 </TableRow>
               );
             })}

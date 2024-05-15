@@ -1,48 +1,67 @@
-import { useState, type FC, useMemo, createContext } from "react";
+import { useEffect, type FC } from "react";
 import { PageWrapper } from "./pages/PageWrapper";
-import { Box, ThemeProvider, createTheme } from "@mui/material";
+import { ThemeProvider, createTheme, useMediaQuery } from "@mui/material";
 import { RouterProvider } from "react-router";
 import { createBrowserRouter } from "react-router-dom";
 import { FlashPage } from "./pages/FlashPage";
-import { ColorModeContext } from "./context/ColorModeContext";
-
+import { CameraPage } from "./pages/CameraPage";
+import { HomePage } from "./pages/HomePage";
+import { useAppDispatch, useAppSelector } from "./store/hooks";
+import { setDarkMode } from "./store/appSlice";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <PageWrapper>Hello!</PageWrapper>,
+    element: (
+      <PageWrapper>
+        <HomePage />
+      </PageWrapper>
+    ),
   },
   {
     path: "/flash",
-    element: <PageWrapper><FlashPage /></PageWrapper>,
+    element: (
+      <PageWrapper>
+        <FlashPage />
+      </PageWrapper>
+    ),
+  },
+  {
+    path: "/camera",
+    element: (
+      <PageWrapper>
+        <CameraPage />
+      </PageWrapper>
+    ),
   },
 ]);
 
+const lightTheme = createTheme({
+  palette: {
+    mode: "light",
+  },
+});
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+});
+
 export const App: FC = () => {
-  const [mode, setMode] = useState<"light" | "dark">("light");
-  const colorMode = useMemo(
-    () => ({
-      toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-      },
-    }),
-    [],
-  );
-  const theme = useMemo(
-    () =>
-      createTheme({
-        palette: {
-          mode,
-        },
-      }),
-    [mode],
-  );
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+  const isDarkMode = useAppSelector((state) => state.app.isDarkMode);
+  const theme = isDarkMode ? darkTheme : lightTheme;
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (prefersDarkMode) {
+      dispatch(setDarkMode(true));
+    }
+  }, [prefersDarkMode, dispatch, setDarkMode]);
 
   return (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <RouterProvider router={router} />;
-      </ThemeProvider>
-    </ColorModeContext.Provider>
+    <ThemeProvider theme={theme}>
+      <RouterProvider router={router} />
+    </ThemeProvider>
   );
 };

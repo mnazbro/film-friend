@@ -1,7 +1,7 @@
 import { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
-  appId: "photo.tool",
+  appId: "com.mnazbro.photo.tool",
   appName: "photo-tool",
   webDir: "dist",
   server: {
