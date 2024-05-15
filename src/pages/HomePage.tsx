@@ -15,13 +15,15 @@ import CameraIcon from "@mui/icons-material/Camera";
 export const HomePage: FC = () => {
   return (
     <Stack spacing={1}>
-      <Typography variant="h2">Welcome!</Typography>
-      <Typography variant="body1">
+      <Typography variant="h2" color="text.primary">
+        Welcome!
+      </Typography>
+      <Typography variant="body1" color="text.primary">
         <b>Photo Tool</b> is a tool I created for making some film-based
         computations and record keeping easier.
       </Typography>
       <Divider />
-      <Typography variant="body1">
+      <Typography variant="body1" color="text.primary">
         Please add suggestions if you find it useful.
       </Typography>
       <List>

@@ -18,7 +18,7 @@ import {
 import { FC, useEffect, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import { NumericFormatCustom } from "./NumericFormatCustom";
+import { NumericFormatCustom } from "../components/NumericFormatCustom";
 
 type FormInputs = {
   guideNumber: string;
