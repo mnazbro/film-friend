@@ -1,0 +1,20 @@
+vars:
+  BUNDLE_ID:
+    default: com.mnazbro.photo.tool
+  PACKAGE_NAME:
+    default: com.mnazbro.photo.tool
+
+platforms:
+  ios:
+    targets:
+      App:
+        bundleId: $BUNDLE_ID
+        incrementBuild: true
+        version: "1.0"
+        displayName: Photo Tool 
+
+  android:
+    appName: Photo Tool
+    packageName: $PACKAGE_NAME
+    versionName: "1.0"
+    incrementVersionCode: true
