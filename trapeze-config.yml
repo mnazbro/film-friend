@@ -18,9 +18,3 @@ platforms:
     packageName: $PACKAGE_NAME
     versionName: "1.0"
     incrementVersionCode: true
-
-    manifest:
-      - file: AndroidManifest.xml
-        target: manifest/application
-        attrs:
-          android:name: $PACKAGE_NAME
