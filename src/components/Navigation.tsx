@@ -1,21 +1,24 @@
-import { useState, type FC, forwardRef, useContext, ReactNode } from "react";
 import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  Typography,
-  SwipeableDrawer,
-  List,
-  Grid,
-  ListItem,
-  ListItemButton,
-  Divider,
-  Paper,
-  Avatar,
-  ListItemIcon,
-  ListItemText,
-  Switch,
-} from "@mui/material";
+  useState,
+  type FC,
+  forwardRef,
+  type ReactNode,
+  useCallback,
+} from "react";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import SwipeableDrawer from "@mui/material/SwipeableDrawer";
+import List from "@mui/material/List";
+import Grid from "@mui/material/Grid";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import Divider from "@mui/material/Divider";
+import Paper from "@mui/material/Paper";
+import Avatar from "@mui/material/Avatar";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
 import CameraIcon from "@mui/icons-material/Camera";
@@ -25,8 +28,8 @@ import {
   Link as RouterLink,
   LinkProps as RouterLinkProps,
 } from "react-router-dom";
-import { useAppDispatch } from "../store/hooks";
-import { setDarkMode } from "../store/appSlice";
+
+const title = "Analog Aid";
 
 const RouterLinkWrapper = forwardRef<HTMLAnchorElement, RouterLinkProps>(
   function Link(itemProps, ref) {
@@ -36,7 +39,16 @@ const RouterLinkWrapper = forwardRef<HTMLAnchorElement, RouterLinkProps>(
 
 export const Navigation: FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const dispatch = useAppDispatch();
+  const toggleMenuOpen = useCallback(() => {
+    setIsMenuOpen(!isMenuOpen);
+  }, [isMenuOpen]);
+  const openMenu = useCallback(() => {
+    setIsMenuOpen(true);
+  }, []);
+  const closeMenu = useCallback(() => {
+    setIsMenuOpen(false);
+  }, []);
+
   return (
     <>
       <AppBar elevation={1}>
@@ -47,26 +59,23 @@ export const Navigation: FC = () => {
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            onClick={toggleMenuOpen}
           >
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Photo Tool
+            {title}
           </Typography>
-          <Switch
-            onChange={(value) => dispatch(setDarkMode(value.target.checked))}
-          />
         </Toolbar>
       </AppBar>
       <Toolbar />
       <SwipeableDrawer
         anchor="left"
         open={isMenuOpen}
-        onOpen={() => setIsMenuOpen(true)}
-        onClose={() => setIsMenuOpen(false)}
+        onOpen={openMenu}
+        onClose={closeMenu}
       >
-        <DrawerContent onSelect={() => setIsMenuOpen(false)} />
+        <DrawerContent onSelect={closeMenu} />
       </SwipeableDrawer>
     </>
   );
@@ -92,7 +101,7 @@ const DrawerContent: FC<DrawerContentProps> = ({ onSelect }) => {
           </Avatar>
         </Grid>
         <Grid item>
-          <Typography color="primary.contrastText">Photo Tool</Typography>
+          <Typography color="primary.contrastText">{title}</Typography>
         </Grid>
       </Grid>
       <List>
@@ -104,8 +113,9 @@ const DrawerContent: FC<DrawerContentProps> = ({ onSelect }) => {
           Flash
         </NavigationItem>
         <NavigationItem url="/camera" icon={<CameraIcon />} onClick={onSelect}>
-          Camera
+          Cameras
         </NavigationItem>
+        <Divider />
         <NavigationItem
           url="/settings"
           icon={<SettingsIcon />}

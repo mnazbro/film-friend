@@ -1,7 +1,10 @@
-import { List, ListItem, Switch, Typography } from "@mui/material";
-import { FC } from "react";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
+import Typography from "@mui/material/Typography";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import Switch from "@mui/material/Switch";
+import type { FC } from "react";
 import { setDarkMode } from "../store/appSlice";
+import { useAppDispatch, useAppSelector } from "../hooks";
 
 export const SettingsPage: FC = () => {
   const dispatch = useAppDispatch();

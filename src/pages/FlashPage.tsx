@@ -1,24 +1,27 @@
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Alert,
-  Grid,
-  Paper,
-  Stack,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TextField,
-  Typography,
-} from "@mui/material";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Alert from "@mui/material/Alert";
+import Table from "@mui/material/Table";
+import Stack from "@mui/material/Stack";
+import Accordion from "@mui/material/Box";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AccordionSummary from "@mui/material/Box";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+
 import { FC, useEffect, useState } from "react";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import { NumericFormatCustom } from "../components/NumericFormatCustom";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { TextInput } from "../components/TextInput";
+import { NumericInput } from "../components/NumericInput";
+import { useZodForm } from "../hooks";
+import { BackButton } from "../components/BackButton";
 
 type FormInputs = {
   guideNumber: string;
@@ -27,17 +30,29 @@ type FormInputs = {
   unit: "ft" | "m";
 };
 
+const defaultValues: FormInputs = {
+  guideNumber: "66",
+  iso: "400",
+  flashPower: "1",
+  unit: "ft",
+};
+
+const schema = z.object({
+  guideNumber: z.string(),
+  iso: z.string(),
+  flashPower: z.string(),
+  unit: z.string(),
+});
+
 export const FlashPage: FC = () => {
   const [guideNumber, setGuideNumber] = useState<number>(1);
   const [multiplier, setMultiplier] = useState<number>(1);
-  const { handleSubmit, control, watch } = useForm<FormInputs>({
-    defaultValues: {
-      guideNumber: "66",
-      iso: "400",
-      flashPower: "1",
-      unit: "ft",
+  const { handleSubmit, control, watch } = useZodForm(
+    {
+      defaultValues,
     },
-  });
+    schema,
+  );
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
     setMultiplier((100 / parseInt(data.iso)) * parseFloat(data.flashPower));
     setGuideNumber(parseInt(data.guideNumber));
@@ -51,6 +66,7 @@ export const FlashPage: FC = () => {
 
   return (
     <Stack spacing={1} py={1}>
+      <BackButton />
       <Alert severity="info">
         Manual flash calculates distance for you. Given input, check the table
         for correct exposure.
@@ -73,68 +89,23 @@ export const FlashPage: FC = () => {
           <AccordionDetails>
             <Grid container spacing={2}>
               <Grid item xs={6}>
-                <Controller
-                  name="guideNumber"
+                <TextInput
                   control={control}
-                  rules={{ required: true }}
-                  render={({ field }) => (
-                    <TextField
-                      label="Guide Number"
-                      variant="outlined"
-                      fullWidth
-                      {...field}
-                    />
-                  )}
+                  name="guideNumber"
+                  label="Guide Number"
                 />
               </Grid>
               <Grid item xs={6}>
-                <Controller
-                  name="unit"
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field }) => (
-                    <TextField
-                      label="Unit"
-                      variant="outlined"
-                      fullWidth
-                      {...field}
-                    />
-                  )}
-                />
+                <TextInput control={control} name="unit" label="Unit" />
               </Grid>
               <Grid item xs={12}>
-                <Controller
-                  name="iso"
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field }) => (
-                    <TextField
-                      label="ISO"
-                      variant="outlined"
-                      fullWidth
-                      {...field}
-                    />
-                  )}
-                />
+                <TextInput control={control} name="iso" label="ISO" />
               </Grid>
               <Grid item xs={12}>
-                <Controller
+                <NumericInput
+                  control={control}
                   name="flashPower"
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field }) => (
-                    <TextField
-                      label="Flash Power"
-                      variant="outlined"
-                      type="text"
-                      inputMode="numeric"
-                      fullWidth
-                      InputProps={{
-                        inputComponent: NumericFormatCustom as any,
-                      }}
-                      {...field}
-                    />
-                  )}
+                  label="Flash Power"
                 />
               </Grid>
             </Grid>

@@ -1,13 +1,17 @@
-import { configureStore } from '@reduxjs/toolkit';
-import appReducer from './appSlice';
-import camerasSlice from './camerasSlice';
+import { configureStore, createSelector } from "@reduxjs/toolkit";
+import { activeReducer } from "./activeSlice";
+import { appReducer } from "./appSlice";
+import { cameraReducer } from "./cameraSlice";
 
 export const store = configureStore({
- reducer: {
+  reducer: {
     app: appReducer,
-    cameras: camerasSlice,
- },
+    active: activeReducer,
+    camera: cameraReducer,
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+
+export const createAppSelector = createSelector.withTypes<RootState>();
