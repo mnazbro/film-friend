@@ -16,7 +16,6 @@ import TableRow from "@mui/material/TableRow";
 import { FC, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { TextInput } from "../components/TextInput";
 import { NumericInput } from "../components/NumericInput";
