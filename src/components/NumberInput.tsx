@@ -71,7 +71,7 @@ export const NumericFormatCustom = forwardRef<
         onChange({
           target: {
             name: props.name,
-            value: values.floatValue,
+            value: values.floatValue ?? 0,
           },
         });
       }}
