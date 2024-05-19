@@ -62,5 +62,5 @@
     "vite": "^5.0.0",
     "vitest": "^0.34.6"
   },
-  "description": "An Ionic project"
+  "description": "A Photo Tool"
 }
