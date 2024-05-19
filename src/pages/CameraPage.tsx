@@ -1,32 +1,53 @@
-import {
-  Avatar,
-  Box,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemButton,
-  ListItemText,
-  Typography,
-} from "@mui/material";
-import { FC } from "react";
-import { useAppSelector } from "../store/hooks";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Chip from "@mui/material/Chip";
+import ListItemButton from "@mui/material/ListItemButton";
+
+import type { FC } from "react";
+import { useAppSelector } from "../hooks/useAppSelector";
+import { useParams } from "react-router";
+import { CameraId } from "../types";
+import { NonIdealState } from "../components/NonIdealState";
+import List from "@mui/material/List";
+import { RouterLink } from "../components/RouterLink";
+import { BackButton } from "../components/BackButton";
 
 export const CameraPage: FC = () => {
-  const { cameras } = useAppSelector((state) => state.cameras);
+  const { cameraId } = useParams<{ cameraId: CameraId }>();
+  const camera = useAppSelector((state) =>
+    state.camera.cameras.find((camera) => camera.id === cameraId),
+  );
+
+  if (camera == null) {
+    return (
+      <>
+        <BackButton />
+        <NonIdealState title="Camera not found" />
+      </>
+    );
+  }
+
   return (
     <Box>
-      <Typography color="text.primary">
-        Contains a list of all your cameras
+      <BackButton />
+      <Typography variant="h4" color="text.primary">
+        {camera.name}
       </Typography>
+      <Typography color="text.secondary">{camera.description}</Typography>
+      <Chip label={camera.filmFormat} />
+      {camera.hasLightMeter && <Chip label="Has Light Meter" />}
       <List>
-        {cameras.map((camera, index) => (
-          <ListItemButton key={index}>
-            <ListItemAvatar>
-              <Avatar sx={{ bgcolor: "info.dark" }}>{camera.name[0]}</Avatar>
-            </ListItemAvatar>
-            <ListItemText>{camera.name}</ListItemText>
-          </ListItemButton>
-        ))}
+        {camera.rolls
+          .filter((roll) => roll.visible)
+          .map((roll) => {
+            return (
+              <RouterLink to={`/camera/${camera.id}/roll/${roll.id}`}>
+                <ListItemButton key={roll.id}>
+                  <Typography color="text.primary">{roll.name}</Typography>
+                </ListItemButton>
+              </RouterLink>
+            );
+          })}
       </List>
     </Box>
   );

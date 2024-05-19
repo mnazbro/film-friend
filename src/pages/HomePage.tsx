@@ -1,47 +1,56 @@
-import {
-  Button,
-  Divider,
-  Stack,
-  Typography,
-  Link,
-  List,
-  ListItem,
-} from "@mui/material";
-import { Link as RouterLink } from "react-router-dom";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
+
 import { FC } from "react";
-import FlashOnIcon from "@mui/icons-material/FlashOn";
-import CameraIcon from "@mui/icons-material/Camera";
+import AddIcon from "@mui/icons-material/Add";
+import { RouterLink } from "../components/RouterLink";
+import { useAppSelector } from "../hooks";
+import {
+  selectActiveCamera,
+  selectActiveRoll,
+  selectAtLeastOneCameraExists,
+} from "../selectors";
 
 export const HomePage: FC = () => {
+  const activeCamera = useAppSelector(selectActiveCamera);
+  const activeRoll = useAppSelector(selectActiveRoll);
+  const atLeastOneCameraExists = useAppSelector(selectAtLeastOneCameraExists);
+  if (activeCamera == null) {
+    if (!atLeastOneCameraExists) {
+      return (
+        <Box>
+          <Typography color="text.primary">
+            Create a camera to start!
+          </Typography>
+          <RouterLink to="/camera/new">
+            <Button startIcon={<AddIcon />}>New Camera</Button>
+          </RouterLink>
+        </Box>
+      );
+    }
+    return (
+      <Box>
+        <Typography color="text.primary">Select an active camera</Typography>
+        <RouterLink to="/camera/select">
+          <Button>Select Camera</Button>
+        </RouterLink>
+      </Box>
+    );
+  }
   return (
     <Stack spacing={1}>
-      <Typography variant="h2" color="text.primary">
-        Welcome!
-      </Typography>
       <Typography variant="body1" color="text.primary">
-        <b>Photo Tool</b> is a tool I created for making some film-based
-        computations and record keeping easier.
+        Current Camera is {activeCamera.name}
       </Typography>
-      <Divider />
-      <Typography variant="body1" color="text.primary">
-        Please add suggestions if you find it useful.
-      </Typography>
-      <List>
-        <ListItem>
-          <Link component={RouterLink} to="/flash">
-            <Button variant="outlined" startIcon={<FlashOnIcon />}>
-              Flash
-            </Button>
-          </Link>
-        </ListItem>
-        <ListItem>
-          <Link component={RouterLink} to="/camera">
-            <Button variant="outlined" startIcon={<CameraIcon />}>
-              Cameras
-            </Button>
-          </Link>
-        </ListItem>
-      </List>
+      {activeRoll == null ? (
+        <RouterLink to={`/camera/${activeCamera.id}/roll/new`}>
+          <Button>Add a new roll</Button>
+        </RouterLink>
+      ) : (
+        <Typography>{activeRoll.name}</Typography>
+      )}
     </Stack>
   );
 };
