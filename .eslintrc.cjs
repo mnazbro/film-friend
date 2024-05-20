@@ -6,7 +6,7 @@ module.exports = {
     "plugin:import/recommended",
     "plugin:import/typescript",
     "plugin:regexp/recommended",
-    //    "plugin:vitest/recommended",
+    "plugin:vitest/recommended",
     "plugin:deprecation/recommended",
 
     "plugin:react/recommended",
