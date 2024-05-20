@@ -41,7 +41,10 @@ export const CameraPage: FC = () => {
           .filter((roll) => roll.visible)
           .map((roll) => {
             return (
-              <RouterLink to={`/camera/${camera.id}/roll/${roll.id}`}>
+              <RouterLink
+                key={roll.id}
+                to={`/camera/${camera.id}/roll/${roll.id}`}
+              >
                 <ListItemButton key={roll.id}>
                   <Typography color="text.primary">{roll.name}</Typography>
                 </ListItemButton>

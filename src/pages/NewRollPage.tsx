@@ -1,22 +1,19 @@
 import Alert from "@mui/material/Alert";
 
 import type { FC } from "react";
-import { type SubmitHandler, useForm } from "react-hook-form";
+import { type SubmitHandler } from "react-hook-form";
 import { TextInput } from "../components/TextInput";
 import { addRoll } from "../store/cameraSlice";
 import { useAppDispatch, useAppSelector, useZodForm } from "../hooks";
-import { selectActiveCamera } from "../selectors";
 import { v4 } from "uuid";
 import * as z from "zod";
 import { CameraId, Iso, RollId } from "../types";
 import Stack from "@mui/material/Stack";
 import AlertTitle from "@mui/material/AlertTitle";
 import Typography from "@mui/material/Typography";
-import { NumericInput } from "../components/NumericInput";
 import { NumberInput } from "../components/NumberInput";
-import Button from "@mui/material/Button";
 import { useNavigate, useParams } from "react-router";
-import { enqueueSnackbar, useSnackbar } from "notistack";
+import { useSnackbar } from "notistack";
 import { setActiveRoll } from "../store/activeSlice";
 import { BackButton } from "../components/BackButton";
 import { SubmitButton } from "../components/SubmitButton";
@@ -63,6 +60,7 @@ export const NewRollPage: FC = () => {
     // TODO: Handle this better
     throw new Error("Oh no");
   }
+
   const { handleSubmit, control } = useZodForm<FormInputs>(
     {
       defaultValues,
@@ -73,7 +71,7 @@ export const NewRollPage: FC = () => {
     const rollId: RollId = `roll_${v4()}`;
     dispatch(
       addRoll({
-        cameraId: camera?.id,
+        cameraId: camera.id,
         roll: {
           id: rollId,
           name: data.name,

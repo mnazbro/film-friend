@@ -1,5 +1,5 @@
 import TextField from "@mui/material/TextField";
-import type { FC, ReactNode } from "react";
+import type { ReactNode } from "react";
 import {
   Control,
   Controller,

@@ -14,7 +14,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 
 import { FC, useEffect, useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler } from "react-hook-form";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import * as z from "zod";
 import { TextInput } from "../components/TextInput";
@@ -56,6 +56,7 @@ export const FlashPage: FC = () => {
     setMultiplier((100 / parseInt(data.iso)) * parseFloat(data.flashPower));
     setGuideNumber(parseInt(data.guideNumber));
   };
+
   useEffect(() => {
     const subscription = watch(() => handleSubmit(onSubmit)());
     return () => {

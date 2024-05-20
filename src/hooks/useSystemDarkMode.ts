@@ -11,5 +11,5 @@ export function useSystemDarkMode() {
     if (prefersDarkMode) {
       dispatch(setDarkMode(true));
     }
-  }, [prefersDarkMode, dispatch, setDarkMode]);
+  }, [prefersDarkMode, dispatch]);
 }

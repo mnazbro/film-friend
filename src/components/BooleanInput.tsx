@@ -1,11 +1,8 @@
-import {
-  FormControl,
-  FormControlLabel,
-  FormHelperText,
-  InputLabel,
-} from "@mui/material";
 import Switch from "@mui/material/Switch";
-import { useId, type FC, type ReactNode } from "react";
+import FormControl from "@mui/material/FormControl";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormHelperText from "@mui/material/FormHelperText";
+import { useId, type ReactNode } from "react";
 import {
   Control,
   Controller,
@@ -32,7 +29,6 @@ export const BooleanInput = <
   label,
   required = false,
 }: BooleanInputProps<TFieldValues, TContext>): ReactNode => {
-  const inputId = useId();
   const helperTextId = useId();
   return (
     <Controller
