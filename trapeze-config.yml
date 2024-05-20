@@ -11,7 +11,7 @@ platforms:
         bundleId: $BUNDLE_ID
         incrementBuild: true
         version: "1.0"
-        displayName: Photo Tool 
+        displayName: Photo Tool
 
   android:
     appName: Photo Tool

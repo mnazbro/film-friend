@@ -2,7 +2,7 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import { FC, PropsWithChildren } from "react";
 
-export const AppBorder: FC<PropsWithChildren<{}>> = ({ children }) => {
+export const AppBorder: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Stack
       direction="column"

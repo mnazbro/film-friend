@@ -29,13 +29,14 @@ export const SelectCameraPage: FC = () => {
       autoHideDuration: 1000,
     });
   };
+
   return (
     <Stack spacing={1} mt={1}>
       <BackButton />
       <Typography color="text.primary">Select a camera</Typography>
       <List>
         {cameras.map((camera) => (
-          <ListItemButton onClick={() => handleClick(camera)}>
+          <ListItemButton key={camera.id} onClick={() => handleClick(camera)}>
             <ListItemAvatar>
               <Avatar sx={{ bgcolor: "info.dark" }}>{camera.name[0]}</Avatar>
             </ListItemAvatar>

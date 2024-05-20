@@ -9,7 +9,9 @@ import type { Schema } from "zod";
 
 export function useZodForm<
   TFieldValues extends FieldValues,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   TSchema extends Schema<any, any> = Schema<any, any>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   TContext = any,
   TTransformedValues extends FieldValues | undefined = undefined,
 >(

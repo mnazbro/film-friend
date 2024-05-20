@@ -30,6 +30,7 @@ export const HomePage: FC = () => {
         </Box>
       );
     }
+
     return (
       <Box>
         <Typography color="text.primary">Select an active camera</Typography>
@@ -39,6 +40,7 @@ export const HomePage: FC = () => {
       </Box>
     );
   }
+
   return (
     <Stack spacing={1}>
       <Typography variant="body1" color="text.primary">
