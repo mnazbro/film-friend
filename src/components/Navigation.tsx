@@ -31,7 +31,7 @@ import {
 import { styled, useTheme } from "@mui/material";
 
 const title = "Film Friend";
-const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
+const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
 const RouterLinkWrapper = forwardRef<HTMLAnchorElement, RouterLinkProps>(
   function Link(itemProps, ref) {
@@ -55,7 +55,7 @@ export const Navigation: FC = () => {
     <>
       <AppBar
         elevation={1}
-        sx={{ top: "env(safe-area-inset-top)"}}
+        sx={{ top: "env(safe-area-inset-top)" }}
         position="fixed"
         color="primary"
         enableColorOnDark
