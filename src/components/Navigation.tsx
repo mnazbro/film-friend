@@ -28,8 +28,10 @@ import {
   Link as RouterLink,
   LinkProps as RouterLinkProps,
 } from "react-router-dom";
+import { styled, useTheme } from "@mui/material";
 
 const title = "Analog Aid";
+const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
 const RouterLinkWrapper = forwardRef<HTMLAnchorElement, RouterLinkProps>(
   function Link(itemProps, ref) {
@@ -51,7 +53,7 @@ export const Navigation: FC = () => {
 
   return (
     <>
-      <AppBar elevation={1}>
+      <AppBar elevation={1} sx={{top: "env(safe-area-inset-top)"}} position="fixed">
         <Toolbar>
           <IconButton
             size="large"
@@ -68,7 +70,7 @@ export const Navigation: FC = () => {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Toolbar />
+      <Offset />
       <SwipeableDrawer
         anchor="left"
         open={isMenuOpen}
@@ -86,6 +88,7 @@ type DrawerContentProps = {
 };
 
 const DrawerContent: FC<DrawerContentProps> = ({ onSelect }) => {
+  const theme = useTheme();
   return (
     <Paper elevation={0} square>
       <Grid
@@ -94,6 +97,7 @@ const DrawerContent: FC<DrawerContentProps> = ({ onSelect }) => {
         spacing={2}
         bgcolor="primary.main"
         p={2}
+        pt={`calc(env(safe-area-inset-top) + ${theme.spacing(2)})`}
       >
         <Grid item>
           <Avatar sx={{ bgcolor: "primary.contrastText" }}>
