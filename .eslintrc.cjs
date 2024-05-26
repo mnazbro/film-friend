@@ -57,14 +57,14 @@ module.exports = {
         "@typescript-eslint/array-type": ["error", { default: "array-simple" }],
         "@typescript-eslint/consistent-type-definitions": "off",
         "@typescript-eslint/no-misused-promises": [
-          'error',
+          "error",
           {
             checksVoidReturn: {
               arguments: false,
               attributes: false,
-            }
-          }
-        ]
+            },
+          },
+        ],
       },
     },
   ],
