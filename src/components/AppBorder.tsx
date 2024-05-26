@@ -3,11 +3,15 @@ import Stack from "@mui/material/Stack";
 import { FC, PropsWithChildren } from "react";
 
 type AppBorderProps = PropsWithChildren<{
-  topBgColor?: BoxProps['bgcolor'];
-  bottomBgColor?: BoxProps['bgcolor'];
+  topBgColor?: BoxProps["bgcolor"];
+  bottomBgColor?: BoxProps["bgcolor"];
 }>;
 
-export const AppBorder: FC<AppBorderProps> = ({ topBgColor, children, bottomBgColor,  }) => {
+export const AppBorder: FC<AppBorderProps> = ({
+  topBgColor,
+  children,
+  bottomBgColor,
+}) => {
   return (
     <Stack
       direction="column"
