@@ -57,6 +57,8 @@ export const Navigation: FC = () => {
         elevation={1}
         sx={{ top: "env(safe-area-inset-top)" }}
         position="fixed"
+        color="primary"
+        enableColorOnDark
       >
         <Toolbar>
           <IconButton
