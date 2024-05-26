@@ -1,5 +1,5 @@
 import type { FC, PropsWithChildren } from "react";
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import { CssBaseline, GlobalStyles, ThemeProvider } from "@mui/material";
 import { RouterProvider } from "react-router";
 import { darkTheme, lightTheme } from "./themes";
 import { router } from "./router";
@@ -12,7 +12,14 @@ export const App: FC = () => {
   return (
     <Provider store={store}>
       <ThemeWrapper>
-        <SnackbarProvider maxSnack={3}>
+        <GlobalStyles
+          styles={{
+            ".notistack-SnackbarContainer": {
+              bottom: "calc(env(safe-area-inset-bottom) + 14px)",
+            },
+          }}
+        />
+        <SnackbarProvider maxSnack={3} dense>
           <RouterProvider router={router} />
         </SnackbarProvider>
       </ThemeWrapper>
