@@ -30,7 +30,7 @@ import {
 } from "react-router-dom";
 import { styled, useTheme } from "@mui/material";
 
-const title = "Analog Aid";
+const title = "Film Friend";
 const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
 const RouterLinkWrapper = forwardRef<HTMLAnchorElement, RouterLinkProps>(
