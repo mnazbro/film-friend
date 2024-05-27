@@ -26,7 +26,9 @@ export const AppBorder: FC<AppBorderProps> = ({
       <Box height="env(safe-area-inset-top)" bgcolor={topBgColor} />
       <Stack direction="row" flex={1}>
         <Box width="env(safe-area-inset-left)" bgcolor={leftBgColor} />
-        <Box flex={1} overflow="hidden scroll">{children}</Box>
+        <Box flex={1} overflow="hidden scroll">
+          {children}
+        </Box>
         <Box width="env(safe-area-inset-right)" bgcolor={rightBgColor} />
       </Stack>
       <Box height="env(safe-area-inset-bottom)" bgcolor={bottomBgColor} />
