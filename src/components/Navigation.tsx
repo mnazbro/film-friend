@@ -4,10 +4,7 @@ import {
   forwardRef,
   type ReactNode,
   useCallback,
-  type PropsWithChildren,
 } from "react";
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";

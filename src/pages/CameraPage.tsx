@@ -10,7 +10,6 @@ import { CameraId } from "../types";
 import { NonIdealState } from "../components/NonIdealState";
 import List from "@mui/material/List";
 import { RouterLink } from "../components/RouterLink";
-import { BackButton } from "../components/BackButton";
 
 export const CameraPage: FC = () => {
   const { cameraId } = useParams<{ cameraId: CameraId }>();
@@ -21,7 +20,6 @@ export const CameraPage: FC = () => {
   if (camera == null) {
     return (
       <>
-        <BackButton />
         <NonIdealState title="Camera not found" />
       </>
     );
@@ -29,7 +27,6 @@ export const CameraPage: FC = () => {
 
   return (
     <Box>
-      <BackButton />
       <Typography variant="h4" color="text.primary">
         {camera.name}
       </Typography>

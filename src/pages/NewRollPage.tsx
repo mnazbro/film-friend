@@ -15,7 +15,6 @@ import { NumberInput } from "../components/NumberInput";
 import { useNavigate, useParams } from "react-router";
 import { useSnackbar } from "notistack";
 import { setActiveRoll } from "../store/activeSlice";
-import { BackButton } from "../components/BackButton";
 import { SubmitButton } from "../components/SubmitButton";
 
 type FormInputs = {
@@ -94,7 +93,6 @@ export const NewRollPage: FC = () => {
 
   return (
     <Stack spacing={1} py={1}>
-      <BackButton />
       <Alert severity="info">
         <AlertTitle>Roll</AlertTitle>
         <Typography color="text.primary">

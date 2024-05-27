@@ -12,7 +12,6 @@ import { setActiveCamera } from "../store/activeSlice";
 import { useNavigate } from "react-router";
 import { useSnackbar } from "notistack";
 import { Camera } from "../types";
-import { BackButton } from "../components/BackButton";
 
 export const SelectCameraPage: FC = () => {
   const cameras = useAppSelector((state) => state.camera.cameras);
@@ -32,7 +31,6 @@ export const SelectCameraPage: FC = () => {
 
   return (
     <Stack spacing={1} mt={1}>
-      <BackButton />
       <Typography color="text.primary">Select a camera</Typography>
       <List>
         {cameras.map((camera) => (

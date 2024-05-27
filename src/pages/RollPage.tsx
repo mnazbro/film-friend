@@ -9,7 +9,6 @@ import { CameraId, RollId } from "../types";
 import { NonIdealState } from "../components/NonIdealState";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import { BackButton } from "../components/BackButton";
 
 export const RollPage: FC = () => {
   const { cameraId, rollId } = useParams<{
@@ -26,7 +25,6 @@ export const RollPage: FC = () => {
   if (roll == null) {
     return (
       <>
-        <BackButton />
         <NonIdealState title="Roll not found" />
       </>
     );
@@ -34,7 +32,6 @@ export const RollPage: FC = () => {
 
   return (
     <Box>
-      <BackButton />
       <Typography variant="h4" color="text.primary">
         {roll.name}
       </Typography>

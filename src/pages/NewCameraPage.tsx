@@ -5,7 +5,6 @@ import { type SubmitHandler } from "react-hook-form";
 import { TextInput } from "../components/TextInput";
 import AlertTitle from "@mui/material/AlertTitle";
 import * as z from "zod";
-import { BackButton } from "../components/BackButton";
 import { useAppDispatch, useZodForm } from "../hooks";
 import { BooleanInput } from "../components/BooleanInput";
 import { SubmitButton } from "../components/SubmitButton";
@@ -64,7 +63,6 @@ export const NewCameraPage: FC = () => {
 
   return (
     <Stack spacing={1} py={1}>
-      <BackButton />
       <Alert severity="info">
         <AlertTitle>Camera</AlertTitle>A camera allows you to associate specific
         shots with more metadata.
