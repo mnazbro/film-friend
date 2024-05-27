@@ -1,5 +1,6 @@
 import Button from "@mui/material/Button";
-import { FC, PropsWithChildren } from "react";
+import type { FC, PropsWithChildren } from "react";
+
 export type SubmitButtonProps = PropsWithChildren;
 
 export const SubmitButton: FC<SubmitButtonProps> = ({ children }) => {

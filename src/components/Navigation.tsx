@@ -4,7 +4,10 @@ import {
   forwardRef,
   type ReactNode,
   useCallback,
+  type PropsWithChildren,
 } from "react";
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
@@ -26,12 +29,11 @@ import FlashOnIcon from "@mui/icons-material/FlashOn";
 import SettingsIcon from "@mui/icons-material/Settings";
 import {
   Link as RouterLink,
-  LinkProps as RouterLinkProps,
+  type LinkProps as RouterLinkProps,
 } from "react-router-dom";
-import { styled, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 
 const title = "Film Friend";
-const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
 const RouterLinkWrapper = forwardRef<HTMLAnchorElement, RouterLinkProps>(
   function Link(itemProps, ref) {
@@ -56,11 +58,11 @@ export const Navigation: FC = () => {
       <AppBar
         elevation={1}
         sx={{
-          top: "env(safe-area-inset-top)",
+          pt: "env(safe-area-inset-top)",
           pl: "env(safe-area-inset-left)",
           pr: "env(safe-area-inset-right)",
         }}
-        position="fixed"
+        position="static"
         color="primary"
         enableColorOnDark
       >
@@ -80,7 +82,6 @@ export const Navigation: FC = () => {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Offset />
       <SwipeableDrawer
         anchor="left"
         open={isMenuOpen}
@@ -107,22 +108,22 @@ const DrawerContent: FC<DrawerContentProps> = ({ onSelect }) => {
         spacing={2}
         bgcolor="primary.main"
         p={2}
-        pt={`calc(env(safe-area-inset-top) + ${theme.spacing(2)})`}
-        pl={`calc(env(safe-area-inset-left) + ${theme.spacing(2)})`}
+        pt={`calc(max(env(safe-area-inset-top), ${theme.spacing(2)}))`}
+        pl={`calc(max(env(safe-area-inset-left), ${theme.spacing(2)}))`}
       >
         <Grid item>
           <Avatar sx={{ bgcolor: "primary.contrastText" }}>
             <CameraIcon color="primary" />
           </Avatar>
         </Grid>
-        <Grid item>
+        <Grid item xs>
           <Typography color="primary.contrastText">{title}</Typography>
         </Grid>
       </Grid>
       <List
         sx={{
-          pl: `calc(env(safe-area-inset-left) + ${theme.spacing(2)})`,
-          pb: `calc(env(safe-area-inset-bottom) + ${theme.spacing(2)})`,
+          pl: `env(safe-area-inset-left)`,
+          pb: `calc(max(env(safe-area-inset-bottom), ${theme.spacing(2)}))`,
         }}
       >
         <NavigationItem url="/" icon={<HomeIcon />} onClick={onSelect}>
