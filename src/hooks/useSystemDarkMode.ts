@@ -1,4 +1,4 @@
-import { useMediaQuery } from "@mui/material";
+import useMediaQuery from "@mui/system/useMediaQuery";
 import { useEffect } from "react";
 import { setDarkMode } from "../store/appSlice";
 import { useAppDispatch } from "./useAppDispatch";

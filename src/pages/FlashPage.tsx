@@ -20,7 +20,6 @@ import * as z from "zod";
 import { TextInput } from "../components/TextInput";
 import { NumericInput } from "../components/NumericInput";
 import { useZodForm } from "../hooks";
-import { BackButton } from "../components/BackButton";
 
 type FormInputs = {
   guideNumber: string;
@@ -65,8 +64,7 @@ export const FlashPage: FC = () => {
   }, [handleSubmit, watch]);
 
   return (
-    <Stack spacing={1} py={1}>
-      <BackButton />
+    <Stack spacing={1}>
       <Alert severity="info">
         Manual flash calculates distance for you. Given input, check the table
         for correct exposure.

@@ -1,5 +1,5 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { CameraId, RollId } from "../types";
+import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
+import type { CameraId, RollId } from "../types";
 
 export interface ActiveState {
   cameraId: CameraId | null;

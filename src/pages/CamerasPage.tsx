@@ -12,13 +12,11 @@ import type { FC } from "react";
 import { RouterLink } from "../components/RouterLink";
 import { useAppSelector } from "../hooks";
 import { selectVisibleCameras } from "../selectors";
-import { BackButton } from "../components/BackButton";
 
 export const CamerasPage: FC = () => {
   const visibleCameras = useAppSelector(selectVisibleCameras);
   return (
     <Stack spacing={1} mt={1}>
-      <BackButton />
       <RouterLink to="/camera/new">
         <Button fullWidth variant="contained" startIcon={<AddIcon />}>
           New Camera

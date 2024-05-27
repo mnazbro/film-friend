@@ -26,12 +26,11 @@ import FlashOnIcon from "@mui/icons-material/FlashOn";
 import SettingsIcon from "@mui/icons-material/Settings";
 import {
   Link as RouterLink,
-  LinkProps as RouterLinkProps,
+  type LinkProps as RouterLinkProps,
 } from "react-router-dom";
-import { styled, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 
 const title = "Film Friend";
-const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
 const RouterLinkWrapper = forwardRef<HTMLAnchorElement, RouterLinkProps>(
   function Link(itemProps, ref) {
@@ -55,8 +54,12 @@ export const Navigation: FC = () => {
     <>
       <AppBar
         elevation={1}
-        sx={{ top: "env(safe-area-inset-top)" }}
-        position="fixed"
+        sx={{
+          pt: "env(safe-area-inset-top)",
+          pl: "env(safe-area-inset-left)",
+          pr: "env(safe-area-inset-right)",
+        }}
+        position="static"
         color="primary"
         enableColorOnDark
       >
@@ -76,7 +79,6 @@ export const Navigation: FC = () => {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Offset />
       <SwipeableDrawer
         anchor="left"
         open={isMenuOpen}
@@ -103,18 +105,24 @@ const DrawerContent: FC<DrawerContentProps> = ({ onSelect }) => {
         spacing={2}
         bgcolor="primary.main"
         p={2}
-        pt={`calc(env(safe-area-inset-top) + ${theme.spacing(2)})`}
+        pt={`calc(max(env(safe-area-inset-top), ${theme.spacing(2)}))`}
+        pl={`calc(max(env(safe-area-inset-left), ${theme.spacing(2)}))`}
       >
         <Grid item>
           <Avatar sx={{ bgcolor: "primary.contrastText" }}>
             <CameraIcon color="primary" />
           </Avatar>
         </Grid>
-        <Grid item>
+        <Grid item xs>
           <Typography color="primary.contrastText">{title}</Typography>
         </Grid>
       </Grid>
-      <List>
+      <List
+        sx={{
+          pl: `env(safe-area-inset-left)`,
+          pb: `calc(max(env(safe-area-inset-bottom), ${theme.spacing(2)}))`,
+        }}
+      >
         <NavigationItem url="/" icon={<HomeIcon />} onClick={onSelect}>
           Home
         </NavigationItem>

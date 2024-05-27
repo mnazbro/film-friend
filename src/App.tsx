@@ -1,5 +1,7 @@
 import type { FC, PropsWithChildren } from "react";
-import { CssBaseline, GlobalStyles, ThemeProvider } from "@mui/material";
+import CssBaseline from "@mui/material/CssBaseline";
+import GlobalStyles from "@mui/material/GlobalStyles";
+import { ThemeProvider } from "@mui/material/styles";
 import { RouterProvider } from "react-router";
 import { darkTheme, lightTheme } from "./themes";
 import { router } from "./router";

@@ -15,7 +15,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <PageWrapper>
+      <PageWrapper hasBack={false}>
         <HomePage />
       </PageWrapper>
     ),
