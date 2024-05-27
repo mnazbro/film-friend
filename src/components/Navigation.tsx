@@ -55,7 +55,11 @@ export const Navigation: FC = () => {
     <>
       <AppBar
         elevation={1}
-        sx={{ top: "env(safe-area-inset-top)" }}
+        sx={{
+          top: "env(safe-area-inset-top)",
+          pl: "env(safe-area-inset-left)",
+          pr: "env(safe-area-inset-right)",
+        }}
         position="fixed"
         color="primary"
         enableColorOnDark
@@ -104,6 +108,7 @@ const DrawerContent: FC<DrawerContentProps> = ({ onSelect }) => {
         bgcolor="primary.main"
         p={2}
         pt={`calc(env(safe-area-inset-top) + ${theme.spacing(2)})`}
+        pl={`calc(env(safe-area-inset-left) + ${theme.spacing(2)})`}
       >
         <Grid item>
           <Avatar sx={{ bgcolor: "primary.contrastText" }}>
@@ -114,7 +119,12 @@ const DrawerContent: FC<DrawerContentProps> = ({ onSelect }) => {
           <Typography color="primary.contrastText">{title}</Typography>
         </Grid>
       </Grid>
-      <List>
+      <List
+        sx={{
+          pl: `calc(env(safe-area-inset-left) + ${theme.spacing(2)})`,
+          pb: `calc(env(safe-area-inset-bottom) + ${theme.spacing(2)})`,
+        }}
+      >
         <NavigationItem url="/" icon={<HomeIcon />} onClick={onSelect}>
           Home
         </NavigationItem>
