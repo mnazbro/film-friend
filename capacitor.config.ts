@@ -1,8 +1,8 @@
 import { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
-  appId: "com.mnazbro.photo.tool",
-  appName: "photo-tool",
+  appId: "com.mnazbro.film.friend",
+  appName: "film-friend",
   webDir: "dist",
   server: {
     androidScheme: "https",

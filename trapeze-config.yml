@@ -1,8 +1,8 @@
 vars:
   BUNDLE_ID:
-    default: com.mnazbro.photo.tool
+    default: com.mnazbro.film.friend
   PACKAGE_NAME:
-    default: com.mnazbro.photo.tool
+    default: com.mnazbro.film.friend
 
 platforms:
   ios:
@@ -11,10 +11,10 @@ platforms:
         bundleId: $BUNDLE_ID
         incrementBuild: true
         version: "1.0"
-        displayName: Photo Tool
+        displayName: Film Friend
 
   android:
-    appName: Photo Tool
+    appName: Film Friend
     packageName: $PACKAGE_NAME
     versionName: "1.0"
     incrementVersionCode: true
