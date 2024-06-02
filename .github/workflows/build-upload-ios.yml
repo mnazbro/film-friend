@@ -3,7 +3,7 @@ name: Build source code on ios
 on:
   push:
     tags:
-      - '*'
+      - "*"
 
 jobs:
   build_ios:
