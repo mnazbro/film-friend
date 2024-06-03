@@ -6,6 +6,15 @@ import "@fontsource/roboto/700.css";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App";
+import { App as CapacitorApp } from "@capacitor/app";
+
+void CapacitorApp.addListener('backButton', async ({canGoBack}) => {
+  if(!canGoBack){
+    await CapacitorApp.exitApp();
+  } else {
+    window.history.back();
+  }
+});
 
 const container = document.getElementById("root");
 const root = createRoot(container!);
