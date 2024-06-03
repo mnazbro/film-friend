@@ -8,8 +8,8 @@ import { createRoot } from "react-dom/client";
 import { App } from "./App";
 import { App as CapacitorApp } from "@capacitor/app";
 
-void CapacitorApp.addListener('backButton', async ({canGoBack}) => {
-  if(!canGoBack){
+void CapacitorApp.addListener("backButton", async ({ canGoBack }) => {
+  if (!canGoBack) {
     await CapacitorApp.exitApp();
   } else {
     window.history.back();
