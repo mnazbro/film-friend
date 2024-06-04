@@ -4,6 +4,9 @@ on:
   push:
     tags:
       - "*"
+  push:
+    branches:
+      - main
 
 jobs:
   build_ios:
@@ -35,7 +38,7 @@ jobs:
       - name: Sync
         id: sync_code
         run: npx cap sync ios
-      - uses: maierj/fastlane-action@v2.3.0
+      - run: fastlane closed_beta
         env:
           DEVELOPER_APP_IDENTIFIER: ${{ secrets.DEVELOPER_APP_IDENTIFIER }}
           DEVELOPER_APP_ID: ${{ secrets.DEVELOPER_APP_ID }}
@@ -53,8 +56,6 @@ jobs:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           APP_STORE_CONNECT_TEAM_ID: ${{ secrets.APP_STORE_CONNECT_TEAM_ID }}
           DEVELOPER_PORTAL_TEAM_ID: ${{ secrets.DEVELOPER_PORTAL_TEAM_ID }}
-        with:
-          lane: closed_beta
       - name: Upload release bundle
         uses: actions/upload-artifact@v2
         with:
