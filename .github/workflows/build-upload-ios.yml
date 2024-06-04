@@ -9,31 +9,32 @@ jobs:
   build_ios:
     runs-on: macOS-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Use Node.js 16
-        uses: actions/setup-node@v3
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
-          cache: npm
-      - name: Install dependencies
-        id: install_code
-        run: npm ci
+          node-version: "^18"
+          cache: "npm"
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.7.2
-      - name: Build
-        id: build_code
-        run: npm run build
+          bundler-cache: true
       - uses: actions/cache@v3
         with:
           path: ios/App/Pods
           key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-pods-
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        id: build_code
+        run: npm run build
       - name: Sync
         id: sync_code
-        run: npx cap sync
+        run: npx cap sync ios
       - uses: maierj/fastlane-action@v2.3.0
         env:
           DEVELOPER_APP_IDENTIFIER: ${{ secrets.DEVELOPER_APP_IDENTIFIER }}
