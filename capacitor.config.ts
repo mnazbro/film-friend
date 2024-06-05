@@ -13,5 +13,8 @@ const config: CapacitorConfig = {
       resizeOnFullScreen: true,
     },
   },
+  ios: {
+    scheme: "FilmFriendApp",
+  },
 };
 export default config;
