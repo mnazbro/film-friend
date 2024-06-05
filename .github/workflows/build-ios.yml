@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       package:
-        description: 'Name of the branch to publish'
+        description: "Name of the branch to publish"
         required: true
 
 jobs:
