@@ -1,7 +1,7 @@
+import ErrorIcon from "@mui/icons-material/Error";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import type { FC } from "react";
-import ErrorIcon from "@mui/icons-material/Error";
 
 export type NonIdealStateProps = {
   title: string;

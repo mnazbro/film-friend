@@ -1,15 +1,15 @@
-import { PageWrapper } from "./components/PageWrapper";
 import { createBrowserRouter } from "react-router-dom";
-import { FlashPage } from "./pages/FlashPage";
-import { CamerasPage } from "./pages/CamerasPage";
-import { HomePage } from "./pages/HomePage";
-import { SettingsPage } from "./pages/SettingsPage";
-import { CameraPage } from "./pages/CameraPage";
-import { NewCameraPage } from "./pages/NewCameraPage";
 import { NonIdealState } from "./components/NonIdealState";
-import { SelectCameraPage } from "./pages/SelectCameraPage";
+import { PageWrapper } from "./components/PageWrapper";
+import { CameraPage } from "./pages/CameraPage";
+import { CamerasPage } from "./pages/CamerasPage";
+import { FlashPage } from "./pages/FlashPage";
+import { HomePage } from "./pages/HomePage";
+import { NewCameraPage } from "./pages/NewCameraPage";
 import { NewRollPage } from "./pages/NewRollPage";
 import { RollPage } from "./pages/RollPage";
+import { SelectCameraPage } from "./pages/SelectCameraPage";
+import { SettingsPage } from "./pages/SettingsPage";
 
 export const router = createBrowserRouter([
   {

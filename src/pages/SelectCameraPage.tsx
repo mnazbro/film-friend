@@ -1,16 +1,16 @@
-import Typography from "@mui/material/Typography";
-import List from "@mui/material/List";
-import Stack from "@mui/material/Stack";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
+import List from "@mui/material/List";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 
+import { useSnackbar } from "notistack";
 import type { FC } from "react";
+import { useNavigate } from "react-router";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { setActiveCamera } from "../store/activeSlice";
-import { useNavigate } from "react-router";
-import { useSnackbar } from "notistack";
 import { Camera } from "../types";
 
 export const SelectCameraPage: FC = () => {

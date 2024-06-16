@@ -1,17 +1,17 @@
 import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
 import Stack from "@mui/material/Stack";
 import type { FC } from "react";
 import { type SubmitHandler } from "react-hook-form";
-import { TextInput } from "../components/TextInput";
-import AlertTitle from "@mui/material/AlertTitle";
+import { v4 } from "uuid";
 import * as z from "zod";
 import { BooleanInput } from "../components/BooleanInput";
 import { SubmitButton } from "../components/SubmitButton";
-import { addCamera } from "../store/cameraSlice";
-import { CameraId, FilmFormat } from "../types";
-import { v4 } from "uuid";
+import { TextInput } from "../components/TextInput";
 import { useAppDispatch } from "../hooks/redux";
 import { useZodForm } from "../hooks/zod";
+import { addCamera } from "../store/cameraSlice";
+import { CameraId, FilmFormat } from "../types";
 
 type FormInputs = {
   name: string;

@@ -1,9 +1,9 @@
-import type { FC, ReactNode } from "react";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
-import { Navigation } from "./Navigation";
 import { useTheme } from "@mui/material/styles";
+import type { FC, ReactNode } from "react";
 import { BackButton } from "./BackButton";
+import { Navigation } from "./Navigation";
 
 export type PageProps = {
   hasBack?: boolean;

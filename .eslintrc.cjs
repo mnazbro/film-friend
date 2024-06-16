@@ -65,6 +65,24 @@ module.exports = {
             },
           },
         ],
+        "sort-imports": [
+          "error",
+          {
+            ignoreCase: false,
+            ignoreDeclarationSort: true,
+            ignoreMemberSort: false,
+            memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
+          }
+        ],
+        'import/order': [
+         'error',
+         {
+           alphabetize: {
+             order: 'asc',
+             caseInsensitive: true,
+           },
+         },
+       ],
       },
     },
   ],
