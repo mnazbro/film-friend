@@ -10,8 +10,8 @@ import AddIcon from "@mui/icons-material/Add";
 
 import type { FC } from "react";
 import { RouterLink } from "../components/RouterLink";
-import { useAppSelector } from "../hooks";
-import { selectVisibleCameras } from "../selectors";
+import { useAppSelector } from "../hooks/redux";
+import { selectVisibleCameras } from "../selectors/selectVisibleCameras";
 
 export const CamerasPage: FC = () => {
   const visibleCameras = useAppSelector(selectVisibleCameras);

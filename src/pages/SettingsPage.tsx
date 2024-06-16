@@ -4,7 +4,7 @@ import ListItem from "@mui/material/ListItem";
 import Switch from "@mui/material/Switch";
 import type { FC } from "react";
 import { setDarkMode } from "../store/appSlice";
-import { useAppDispatch, useAppSelector } from "../hooks";
+import { useAppDispatch, useAppSelector } from "../hooks/redux";
 
 export const SettingsPage: FC = () => {
   const dispatch = useAppDispatch();

@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import { FC } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import { RouterLink } from "../components/RouterLink";
-import { useAppSelector } from "../hooks";
+import { useAppSelector } from "../hooks/redux";
 import {
   selectActiveCamera,
   selectActiveRoll,

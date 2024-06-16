@@ -5,7 +5,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { RouterProvider } from "react-router";
 import { darkTheme, lightTheme } from "./themes";
 import { router } from "./router";
-import { useAppSelector } from "./hooks";
+import { useAppSelector } from "./hooks/redux";
 import { SnackbarProvider } from "notistack";
 import { Provider } from "react-redux";
 import { store } from "./store/store";

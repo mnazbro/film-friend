@@ -10,20 +10,14 @@ import {
   type FieldPathByValue,
 } from "react-hook-form";
 
-export type BooleanInputProps<
-  TFieldValues extends FieldValues,
-  TContext = unknown,
-> = {
+export type BooleanInputProps<TFieldValues extends FieldValues, TContext> = {
   control: Control<TFieldValues, TContext>;
   label: string;
   name: FieldPathByValue<TFieldValues, boolean>;
   required?: boolean;
 };
 
-export const BooleanInput = <
-  TFieldValues extends FieldValues,
-  TContext = unknown,
->({
+export const BooleanInput = <TFieldValues extends FieldValues, TContext>({
   control,
   name,
   label,

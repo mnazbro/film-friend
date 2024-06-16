@@ -4,7 +4,6 @@ import type { FC } from "react";
 import { type SubmitHandler } from "react-hook-form";
 import { TextInput } from "../components/TextInput";
 import { addRoll } from "../store/cameraSlice";
-import { useAppDispatch, useAppSelector, useZodForm } from "../hooks";
 import { v4 } from "uuid";
 import * as z from "zod";
 import { CameraId, Iso, RollId } from "../types";
@@ -16,6 +15,8 @@ import { useNavigate, useParams } from "react-router";
 import { useSnackbar } from "notistack";
 import { setActiveRoll } from "../store/activeSlice";
 import { SubmitButton } from "../components/SubmitButton";
+import { useAppDispatch, useAppSelector } from "../hooks/redux";
+import { useZodForm } from "../hooks/zod";
 
 type FormInputs = {
   name: string;
@@ -60,7 +61,7 @@ export const NewRollPage: FC = () => {
     throw new Error("Oh no");
   }
 
-  const { handleSubmit, control } = useZodForm<FormInputs>(
+  const { handleSubmit, control } = useZodForm<FormInputs, typeof schema>(
     {
       defaultValues,
     },

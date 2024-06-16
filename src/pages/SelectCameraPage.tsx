@@ -7,7 +7,7 @@ import Avatar from "@mui/material/Avatar";
 import ListItemText from "@mui/material/ListItemText";
 
 import type { FC } from "react";
-import { useAppDispatch, useAppSelector } from "../hooks";
+import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { setActiveCamera } from "../store/activeSlice";
 import { useNavigate } from "react-router";
 import { useSnackbar } from "notistack";

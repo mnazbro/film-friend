@@ -10,9 +10,8 @@ import type { Schema } from "zod";
 export function useZodForm<
   TFieldValues extends FieldValues,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  TSchema extends Schema<any, any> = Schema<any, any>,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  TContext = any,
+  TSchema extends Schema<any, any>,
+  TContext = never,
   TTransformedValues extends FieldValues | undefined = undefined,
 >(
   props: Omit<UseFormProps<TFieldValues, TContext>, "resolver">,

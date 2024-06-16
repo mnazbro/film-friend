@@ -19,7 +19,7 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import * as z from "zod";
 import { TextInput } from "../components/TextInput";
 import { NumericInput } from "../components/NumericInput";
-import { useZodForm } from "../hooks";
+import { useZodForm } from "../hooks/zod";
 
 type FormInputs = {
   guideNumber: string;

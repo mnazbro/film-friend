@@ -5,12 +5,13 @@ import { type SubmitHandler } from "react-hook-form";
 import { TextInput } from "../components/TextInput";
 import AlertTitle from "@mui/material/AlertTitle";
 import * as z from "zod";
-import { useAppDispatch, useZodForm } from "../hooks";
 import { BooleanInput } from "../components/BooleanInput";
 import { SubmitButton } from "../components/SubmitButton";
 import { addCamera } from "../store/cameraSlice";
 import { CameraId, FilmFormat } from "../types";
 import { v4 } from "uuid";
+import { useAppDispatch } from "../hooks/redux";
+import { useZodForm } from "../hooks/zod";
 
 type FormInputs = {
   name: string;
@@ -38,7 +39,7 @@ const schema = z.object({
 
 export const NewCameraPage: FC = () => {
   const dispatch = useAppDispatch();
-  const { handleSubmit, control } = useZodForm<FormInputs>(
+  const { handleSubmit, control } = useZodForm<FormInputs, typeof schema>(
     { defaultValues },
     schema,
   );

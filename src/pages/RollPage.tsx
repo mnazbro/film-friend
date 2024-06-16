@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 
 import { useMemo, type FC } from "react";
-import { useAppSelector } from "../hooks/useAppSelector";
+import { useAppSelector } from "../hooks/redux";
 import { useParams } from "react-router";
 import { CameraId, RollId } from "../types";
 import { NonIdealState } from "../components/NonIdealState";
