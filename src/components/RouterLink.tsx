@@ -1,6 +1,6 @@
-import { Link as ReactRouterLink } from "react-router-dom";
 import Link from "@mui/material/Link";
 import type { FC, PropsWithChildren } from "react";
+import { Link as ReactRouterLink } from "react-router-dom";
 
 export type RouterLinkProps = PropsWithChildren<{
   to: string;

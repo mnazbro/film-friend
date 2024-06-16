@@ -1,28 +1,22 @@
 import TextField from "@mui/material/TextField";
 import type { ReactNode } from "react";
-import {
-  Control,
-  Controller,
-  type FieldValues,
-  type FieldPathByValue,
-} from "react-hook-form";
 import { forwardRef } from "react";
+import {
+  type Control,
+  Controller,
+  type FieldPathByValue,
+  type FieldValues,
+} from "react-hook-form";
 import { NumericFormat, type NumericFormatProps } from "react-number-format";
 
-export type NumberInputProps<
-  TFieldValues extends FieldValues,
-  TContext = unknown,
-> = {
+export type NumberInputProps<TFieldValues extends FieldValues, TContext> = {
   control: Control<TFieldValues, TContext>;
   label: string;
   name: FieldPathByValue<TFieldValues, number>;
   required?: boolean;
 };
 
-export const NumberInput = <
-  TFieldValues extends FieldValues,
-  TContext = unknown,
->({
+export const NumberInput = <TFieldValues extends FieldValues, TContext>({
   control,
   name,
   label,

@@ -1,17 +1,16 @@
-import Typography from "@mui/material/Typography";
-import List from "@mui/material/List";
-import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
-import ListItemText from "@mui/material/ListItemText";
 import AddIcon from "@mui/icons-material/Add";
-
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import List from "@mui/material/List";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 import type { FC } from "react";
 import { RouterLink } from "../components/RouterLink";
-import { useAppSelector } from "../hooks";
-import { selectVisibleCameras } from "../selectors";
+import { useAppSelector } from "../hooks/redux";
+import { selectVisibleCameras } from "../selectors/selectVisibleCameras";
 
 export const CamerasPage: FC = () => {
   const visibleCameras = useAppSelector(selectVisibleCameras);

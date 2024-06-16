@@ -1,14 +1,14 @@
-import type { FC, PropsWithChildren } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import GlobalStyles from "@mui/material/GlobalStyles";
 import { ThemeProvider } from "@mui/material/styles";
-import { RouterProvider } from "react-router";
-import { darkTheme, lightTheme } from "./themes";
-import { router } from "./router";
-import { useAppSelector } from "./hooks";
 import { SnackbarProvider } from "notistack";
+import type { FC, PropsWithChildren } from "react";
 import { Provider } from "react-redux";
+import { RouterProvider } from "react-router";
+import { useAppSelector } from "./hooks/redux";
+import { router } from "./router";
 import { store } from "./store/store";
+import { darkTheme, lightTheme } from "./themes";
 
 export const App: FC = () => {
   return (

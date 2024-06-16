@@ -3,24 +3,18 @@ import type { ReactNode } from "react";
 import {
   Control,
   Controller,
-  type FieldValues,
   type FieldPathByValue,
+  type FieldValues,
 } from "react-hook-form";
 
-export type TextInputProps<
-  TFieldValues extends FieldValues,
-  TContext = unknown,
-> = {
+export type TextInputProps<TFieldValues extends FieldValues, TContext> = {
   control: Control<TFieldValues, TContext>;
   label: string;
   name: FieldPathByValue<TFieldValues, string>;
   required?: boolean;
 };
 
-export const TextInput = <
-  TFieldValues extends FieldValues,
-  TContext = unknown,
->({
+export const TextInput = <TFieldValues extends FieldValues, TContext>({
   control,
   name,
   label,
