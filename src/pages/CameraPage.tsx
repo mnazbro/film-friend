@@ -5,7 +5,6 @@ import ListItemButton from "@mui/material/ListItemButton";
 import Typography from "@mui/material/Typography";
 import type { FC } from "react";
 import { useParams } from "react-router";
-
 import { NonIdealState } from "../components/NonIdealState";
 import { RouterLink } from "../components/RouterLink";
 import { useAppSelector } from "../hooks/redux";

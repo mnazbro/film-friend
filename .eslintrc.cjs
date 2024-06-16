@@ -8,6 +8,7 @@ module.exports = {
     "plugin:regexp/recommended",
     "plugin:vitest/recommended",
     "plugin:deprecation/recommended",
+    "plugin:@typescript-eslint/recommended",
 
     "plugin:react/recommended",
     "plugin:jsx-a11y/recommended",
@@ -19,6 +20,11 @@ module.exports = {
     node: false,
   },
   settings: {
+    'import/resolver': {
+      typescript: {
+        project: './tsconfig.json',
+      },
+    },
     react: {
       version: "detect",
     },
@@ -77,6 +83,7 @@ module.exports = {
         'import/order': [
          'error',
          {
+           'newlines-between': 'never',
            alphabetize: {
              order: 'asc',
              caseInsensitive: true,

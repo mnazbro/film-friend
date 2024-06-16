@@ -5,7 +5,6 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-
 import { useSnackbar } from "notistack";
 import type { FC } from "react";
 import { useNavigate } from "react-router";

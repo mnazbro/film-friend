@@ -3,7 +3,6 @@ import Chip from "@mui/material/Chip";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Typography from "@mui/material/Typography";
-
 import { type FC, useMemo } from "react";
 import { useParams } from "react-router";
 import { NonIdealState } from "../components/NonIdealState";
