@@ -10,11 +10,11 @@ platforms:
       App:
         bundleId: $BUNDLE_ID
         incrementBuild: true
-        version: "0.2"
+        version: "0.2.1"
         displayName: Film Friend
 
   android:
     appName: Film Friend
     packageName: $PACKAGE_NAME
-    versionName: "0.2"
+    versionName: "0.2.1"
     incrementVersionCode: true
