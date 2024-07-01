@@ -38,7 +38,7 @@ export const NumberInput = <TFieldValues extends FieldValues, TContext>({
           error={error != null}
           InputProps={{
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
-            inputComponent: NumericFormatCustom as any,
+            inputComponent: NumberFormat as any,
           }}
           {...field}
         />
@@ -47,30 +47,29 @@ export const NumberInput = <TFieldValues extends FieldValues, TContext>({
   );
 };
 
-interface NumericFormatCustomProps {
+interface NumberFormatProps {
   onChange: (event: { target: { name: string; value: number } }) => void;
   name: string;
 }
 
-export const NumericFormatCustom = forwardRef<
-  NumericFormatProps,
-  NumericFormatCustomProps
->(function NumericFormatCustom(props, ref) {
-  const { onChange, ...other } = props;
+export const NumberFormat = forwardRef<NumericFormatProps, NumberFormatProps>(
+  function NumericFormatCustom(props, ref) {
+    const { onChange, ...other } = props;
 
-  return (
-    <NumericFormat
-      {...other}
-      getInputRef={ref}
-      onValueChange={(values) => {
-        onChange({
-          target: {
-            name: props.name,
-            value: values.floatValue ?? 0,
-          },
-        });
-      }}
-      allowNegative={false}
-    />
-  );
-});
+    return (
+      <NumericFormat
+        {...other}
+        getInputRef={ref}
+        onValueChange={(values) => {
+          onChange({
+            target: {
+              name: props.name,
+              value: values.floatValue ?? 0,
+            },
+          });
+        }}
+        allowNegative={false}
+      />
+    );
+  },
+);

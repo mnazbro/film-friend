@@ -51,7 +51,7 @@ export const FlashPage: FC = () => {
     schema,
   );
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
-    setMultiplier((100 / parseInt(data.iso)) * parseFloat(data.flashPower));
+    setMultiplier((parseInt(data.iso) / 100) * parseFloat(data.flashPower));
     setGuideNumber(parseInt(data.guideNumber));
   };
 
