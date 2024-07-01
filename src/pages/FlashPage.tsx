@@ -42,17 +42,28 @@ const schema = z.object({
 });
 
 export const FlashPage: FC = () => {
-  const [guideNumber, setGuideNumber] = useState<number>(1);
-  const [multiplier, setMultiplier] = useState<number>(1);
+  const [guideNumber, setGuideNumber] = useState<number>(
+    Number(defaultValues.guideNumber),
+  );
+  const [multiplier, setMultiplier] = useState<number>(
+    calculateMultiplier({
+      iso: defaultValues.iso,
+      flashPower: defaultValues.flashPower,
+    }),
+  );
   const { handleSubmit, control, watch } = useZodForm(
     {
       defaultValues,
     },
     schema,
   );
-  const onSubmit: SubmitHandler<FormInputs> = (data) => {
-    setMultiplier((parseInt(data.iso) / 100) * parseFloat(data.flashPower));
-    setGuideNumber(parseInt(data.guideNumber));
+  const onSubmit: SubmitHandler<FormInputs> = ({
+    iso,
+    flashPower,
+    guideNumber,
+  }) => {
+    setMultiplier(calculateMultiplier({ iso, flashPower }));
+    setGuideNumber(parseInt(guideNumber));
   };
 
   useEffect(() => {
@@ -135,3 +146,13 @@ export const FlashPage: FC = () => {
     </Stack>
   );
 };
+
+function calculateMultiplier({
+  iso,
+  flashPower,
+}: {
+  iso: string;
+  flashPower: string;
+}): number {
+  return (parseInt(iso) / 100) * parseFloat(flashPower);
+}
