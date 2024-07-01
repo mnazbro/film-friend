@@ -17,9 +17,7 @@ export const CameraPage: FC = () => {
   );
 
   if (camera == null) {
-    return (
-      <NonIdealState title="Camera not found" />
-    );
+    return <NonIdealState title="Camera not found" />;
   }
 
   return (
