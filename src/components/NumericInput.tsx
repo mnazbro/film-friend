@@ -42,7 +42,7 @@ export const NumericInput = <
           error={error != null}
           InputProps={{
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
-            inputComponent: NumericFormatCustom as any,
+            inputComponent: StringNumericFormat as any,
           }}
           {...field}
         />
@@ -51,14 +51,14 @@ export const NumericInput = <
   );
 };
 
-interface NumericFormatCustomProps {
+interface StringNumericFormatProps {
   onChange: (event: { target: { name: string; value: string } }) => void;
   name: string;
 }
 
-export const NumericFormatCustom = forwardRef<
+export const StringNumericFormat = forwardRef<
   NumericFormatProps,
-  NumericFormatCustomProps
+  StringNumericFormatProps
 >(function NumericFormatCustom(props, ref) {
   const { onChange, ...other } = props;
 
