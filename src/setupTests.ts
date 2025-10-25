@@ -6,14 +6,11 @@ import "@testing-library/jest-dom";
 
 // Mock matchmedia
 window.matchMedia =
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   window.matchMedia ||
   function () {
     return {
       matches: false,
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
       addListener: function () {},
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
       removeListener: function () {},
     };
   };
