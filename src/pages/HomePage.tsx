@@ -1,9 +1,6 @@
 import AddIcon from "@mui/icons-material/Add";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
-import { FC } from "react";
+import { Box, Button, Stack, Typography } from "@mui/material";
+import type { FC } from "react";
 import { RouterLink } from "../components/RouterLink";
 import { useAppSelector } from "../hooks/redux";
 import {
@@ -11,7 +8,7 @@ import {
   selectActiveRoll,
   selectAtLeastOneCameraExists,
 } from "../selectors";
-import { Camera } from "../types";
+import type { Camera } from "../types";
 
 export const HomePage: FC = () => {
   const activeCamera = useAppSelector(selectActiveCamera);

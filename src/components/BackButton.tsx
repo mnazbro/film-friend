@@ -1,6 +1,5 @@
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
+import { Box, Button } from "@mui/material";
 import { type FC, useCallback } from "react";
 import { useNavigate } from "react-router";
 

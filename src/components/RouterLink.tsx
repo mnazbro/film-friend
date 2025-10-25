@@ -1,4 +1,4 @@
-import Link from "@mui/material/Link";
+import { Link } from "@mui/material";
 import type { FC, PropsWithChildren } from "react";
 import { Link as ReactRouterLink } from "react-router-dom";
 

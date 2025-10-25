@@ -3,21 +3,23 @@ import FlashOnIcon from "@mui/icons-material/FlashOn";
 import HomeIcon from "@mui/icons-material/Home";
 import MenuIcon from "@mui/icons-material/Menu";
 import SettingsIcon from "@mui/icons-material/Settings";
-import AppBar from "@mui/material/AppBar";
-import Avatar from "@mui/material/Avatar";
-import Divider from "@mui/material/Divider";
-import Grid from "@mui/material/Grid";
-import IconButton from "@mui/material/IconButton";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import Paper from "@mui/material/Paper";
+import {
+  AppBar,
+  Avatar,
+  Divider,
+  Grid,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Paper,
+  SwipeableDrawer,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import SwipeableDrawer from "@mui/material/SwipeableDrawer";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import {
   type FC,
   type ReactNode,
@@ -108,12 +110,12 @@ const DrawerContent: FC<DrawerContentProps> = ({ onSelect }) => {
         pt={`calc(max(env(safe-area-inset-top), ${theme.spacing(2)}))`}
         pl={`calc(max(env(safe-area-inset-left), ${theme.spacing(2)}))`}
       >
-        <Grid item>
+        <Grid>
           <Avatar sx={{ bgcolor: "primary.contrastText" }}>
             <CameraIcon color="primary" />
           </Avatar>
         </Grid>
-        <Grid item xs>
+        <Grid size={8}>
           <Typography color="primary.contrastText">{title}</Typography>
         </Grid>
       </Grid>

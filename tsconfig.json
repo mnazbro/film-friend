@@ -1,5 +1,5 @@
 {
-  "extends": ["@tsconfig/vite-react/tsconfig", "@tsconfig/node22/tsconfig"],
+  "extends": ["@tsconfig/node22/tsconfig", "@tsconfig/vite-react/tsconfig"],
   "compilerOptions": {},
   "include": ["src"]
 }

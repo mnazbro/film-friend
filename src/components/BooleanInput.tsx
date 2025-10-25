@@ -1,10 +1,12 @@
-import FormControl from "@mui/material/FormControl";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormHelperText from "@mui/material/FormHelperText";
-import Switch from "@mui/material/Switch";
+import {
+  FormControl,
+  FormControlLabel,
+  FormHelperText,
+  Switch,
+} from "@mui/material";
 import { type ReactNode, useId } from "react";
 import {
-  Control,
+  type Control,
   Controller,
   type FieldPathByValue,
   type FieldValues,

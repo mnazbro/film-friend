@@ -1,10 +1,7 @@
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
+import { Alert, AlertTitle, Stack, Typography } from "@mui/material";
 import { useSnackbar } from "notistack";
 import type { FC } from "react";
-import { type SubmitHandler } from "react-hook-form";
+import { type SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router";
 import { v4 } from "uuid";
 import * as z from "zod";
@@ -12,10 +9,10 @@ import { NumberInput } from "../components/NumberInput";
 import { SubmitButton } from "../components/SubmitButton";
 import { TextInput } from "../components/TextInput";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import { useZodForm } from "../hooks/zod";
 import { setActiveRoll } from "../store/activeSlice";
 import { addRoll } from "../store/cameraSlice";
-import { CameraId, Iso, RollId } from "../types";
+import type { CameraId, Iso, RollId } from "../types";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 type FormInputs = {
   name: string;
@@ -42,7 +39,7 @@ const schema = z.object({
   iso: z.string(),
   numberOfFrames: z.number().positive(),
   description: z.string(),
-  loadDate: z.optional(z.string().datetime()),
+  loadDate: z.iso.datetime(),
   shotAtIso: z.string(),
   notes: z.string(),
 });
@@ -60,12 +57,10 @@ export const NewRollPage: FC = () => {
     throw new Error("Oh no");
   }
 
-  const { handleSubmit, control } = useZodForm<FormInputs, typeof schema>(
-    {
-      defaultValues,
-    },
-    schema,
-  );
+  const { handleSubmit, control } = useForm({
+    defaultValues,
+    resolver: zodResolver(schema),
+  });
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
     const rollId: RollId = `roll_${v4()}`;
     dispatch(

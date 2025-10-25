@@ -1,13 +1,9 @@
-import Box from "@mui/material/Box";
-import Chip from "@mui/material/Chip";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import Typography from "@mui/material/Typography";
+import { Box, Chip, List, ListItem, Typography } from "@mui/material";
 import { type FC, useMemo } from "react";
 import { useParams } from "react-router";
 import { NonIdealState } from "../components/NonIdealState";
 import { useAppSelector } from "../hooks/redux";
-import { CameraId, RollId } from "../types";
+import type { CameraId, RollId } from "../types";
 
 export const RollPage: FC = () => {
   const { cameraId, rollId } = useParams<{

@@ -1,8 +1,8 @@
-import TextField from "@mui/material/TextField";
+import { TextField } from "@mui/material";
 import type { ReactNode } from "react";
 import { forwardRef } from "react";
 import {
-  Control,
+  type Control,
   Controller,
   type FieldPathByValue,
   type FieldValues,

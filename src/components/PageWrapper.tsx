@@ -1,5 +1,4 @@
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
+import { Box, Stack } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import type { FC, ReactNode } from "react";
 import { BackButton } from "./BackButton";

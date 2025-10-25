@@ -1,14 +1,10 @@
-import Box from "@mui/material/Box";
-import Chip from "@mui/material/Chip";
-import List from "@mui/material/List";
-import ListItemButton from "@mui/material/ListItemButton";
-import Typography from "@mui/material/Typography";
+import { Box, Chip, List, ListItemButton, Typography } from "@mui/material";
 import type { FC } from "react";
 import { useParams } from "react-router";
 import { NonIdealState } from "../components/NonIdealState";
 import { RouterLink } from "../components/RouterLink";
 import { useAppSelector } from "../hooks/redux";
-import { CameraId } from "../types";
+import type { CameraId } from "../types";
 
 export const CameraPage: FC = () => {
   const { cameraId } = useParams<{ cameraId: CameraId }>();

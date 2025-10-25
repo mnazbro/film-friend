@@ -1,25 +1,15 @@
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
-import Stack from "@mui/material/Stack";
+import { Alert, AlertTitle, Stack } from "@mui/material";
 import type { FC } from "react";
-import { type SubmitHandler } from "react-hook-form";
+import { type SubmitHandler, useForm } from "react-hook-form";
 import { v4 } from "uuid";
 import * as z from "zod";
 import { BooleanInput } from "../components/BooleanInput";
 import { SubmitButton } from "../components/SubmitButton";
 import { TextInput } from "../components/TextInput";
 import { useAppDispatch } from "../hooks/redux";
-import { useZodForm } from "../hooks/zod";
 import { addCamera } from "../store/cameraSlice";
-import { CameraId, FilmFormat } from "../types";
-
-type FormInputs = {
-  name: string;
-  description: string;
-  filmFormat: string;
-  hasLightMeter: boolean;
-  notes: string;
-};
+import type { CameraId, FilmFormat } from "../types";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const defaultValues = {
   name: "",
@@ -37,12 +27,14 @@ const schema = z.object({
   notes: z.string(),
 });
 
+type FormInputs = z.input<typeof schema>;
+
 export const NewCameraPage: FC = () => {
   const dispatch = useAppDispatch();
-  const { handleSubmit, control } = useZodForm<FormInputs, typeof schema>(
-    { defaultValues },
-    schema,
-  );
+  const { handleSubmit, control } = useForm({
+    defaultValues,
+    resolver: zodResolver(schema),
+  });
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
     const id: CameraId = `camera_${v4()}`;
     dispatch(

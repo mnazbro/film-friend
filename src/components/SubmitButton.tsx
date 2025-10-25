@@ -1,4 +1,4 @@
-import Button from "@mui/material/Button";
+import { Button } from "@mui/material";
 import type { FC, PropsWithChildren } from "react";
 
 export type SubmitButtonProps = PropsWithChildren;

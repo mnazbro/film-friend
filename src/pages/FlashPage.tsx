@@ -1,31 +1,26 @@
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import Accordion from "@mui/material/Accordion";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import Alert from "@mui/material/Alert";
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
-import Stack from "@mui/material/Stack";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Typography from "@mui/material/Typography";
-import { FC, useEffect, useState } from "react";
-import { SubmitHandler } from "react-hook-form";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Alert,
+  Grid,
+  Paper,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
+import { type FC, useEffect, useState } from "react";
+import { type SubmitHandler, useForm } from "react-hook-form";
 import * as z from "zod";
 import { NumericInput } from "../components/NumericInput";
 import { TextInput } from "../components/TextInput";
-import { useZodForm } from "../hooks/zod";
-
-type FormInputs = {
-  guideNumber: string;
-  iso: string;
-  flashPower: string;
-  unit: "ft" | "m";
-};
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const defaultValues: FormInputs = {
   guideNumber: "66",
@@ -38,8 +33,10 @@ const schema = z.object({
   guideNumber: z.string(),
   iso: z.string(),
   flashPower: z.string(),
-  unit: z.string(),
+  unit: z.enum(["ft", "m"]),
 });
+
+type FormInputs = z.infer<typeof schema>;
 
 export const FlashPage: FC = () => {
   const [guideNumber, setGuideNumber] = useState<number>(
@@ -51,12 +48,10 @@ export const FlashPage: FC = () => {
       flashPower: defaultValues.flashPower,
     }),
   );
-  const { handleSubmit, control, watch } = useZodForm(
-    {
-      defaultValues,
-    },
-    schema,
-  );
+  const { handleSubmit, control, watch } = useForm({
+    defaultValues,
+    resolver: zodResolver(schema),
+  });
   const onSubmit: SubmitHandler<FormInputs> = ({
     iso,
     flashPower,
@@ -96,20 +91,20 @@ export const FlashPage: FC = () => {
           </AccordionSummary>
           <AccordionDetails>
             <Grid container spacing={2}>
-              <Grid item xs={6}>
+              <Grid size={6}>
                 <TextInput
                   control={control}
                   name="guideNumber"
                   label="Guide Number"
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid size={6}>
                 <TextInput control={control} name="unit" label="Unit" />
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={12}>
                 <TextInput control={control} name="iso" label="ISO" />
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={12}>
                 <NumericInput
                   control={control}
                   name="flashPower"
