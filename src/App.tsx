@@ -9,6 +9,8 @@ import { useAppSelector } from "./hooks/redux";
 import { router } from "./router";
 import { store } from "./store/store";
 import { darkTheme, lightTheme } from "./themes";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 export const App: FC = () => {
   return (
@@ -22,7 +24,9 @@ export const App: FC = () => {
           }}
         />
         <SnackbarProvider maxSnack={3} dense>
-          <RouterProvider router={router} />
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <RouterProvider router={router} />
+          </LocalizationProvider>
         </SnackbarProvider>
       </ThemeWrapper>
     </Provider>

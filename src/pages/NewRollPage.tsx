@@ -13,6 +13,7 @@ import { setActiveRoll } from "../store/activeSlice";
 import { addRoll } from "../store/cameraSlice";
 import type { CameraId, Iso, RollId } from "../types";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { DateTimePickerInput } from "../components/DateTimePickerInput.tsx";
 
 type FormInputs = {
   name: string;
@@ -106,7 +107,11 @@ export const NewRollPage: FC = () => {
             required
           />
           <TextInput control={control} name="description" label="Description" />
-          <TextInput control={control} name="loadDate" label="Load Date" />
+          <DateTimePickerInput
+            control={control}
+            name="loadDate"
+            label="Load Date"
+          />
           <TextInput control={control} name="shotAtIso" label="Shot at ISO" />
           <TextInput control={control} name="notes" label="Notes" />
           <SubmitButton>Create Roll</SubmitButton>
