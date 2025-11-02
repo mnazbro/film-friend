@@ -33,6 +33,3 @@ yarn-error.log*
 **/fastlane/Preview.xml
 **/fastlane/screenshots
 **/fastlane/test_output
-
-# TanStack Router
-src/routeTree.gen.ts
