@@ -7,9 +7,9 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { useNavigate } from "@tanstack/react-router";
 import { useSnackbar } from "notistack";
 import type { FC } from "react";
-import { useNavigate } from "react-router";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { setActiveCamera } from "../store/activeSlice";
 import type { Camera } from "../types";
@@ -22,7 +22,7 @@ export const SelectCameraPage: FC = () => {
 
   const handleClick = (camera: Camera) => {
     dispatch(setActiveCamera(camera.id));
-    navigate("/");
+    navigate({ to: "/" });
     enqueueSnackbar({
       message: `${camera.name} is now active`,
       variant: "success",

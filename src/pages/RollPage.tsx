@@ -1,15 +1,17 @@
 import { Box, Chip, List, ListItem, Typography } from "@mui/material";
+import { useParams } from "@tanstack/react-router";
 import { type FC, useMemo } from "react";
-import { useParams } from "react-router";
 import { NonIdealState } from "../components/NonIdealState";
 import { useAppSelector } from "../hooks/redux";
 import type { CameraId, RollId } from "../types";
 
 export const RollPage: FC = () => {
-  const { cameraId, rollId } = useParams<{
+  const { cameraId, rollId } = useParams({
+    from: "/camera/$cameraId/roll/$rollId",
+  }) as {
     cameraId: CameraId;
     rollId: RollId;
-  }>();
+  };
   const camera = useAppSelector((state) =>
     state.camera.cameras.find((camera) => camera.id === cameraId),
   );

@@ -1,10 +1,12 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Alert, AlertTitle, Stack, Typography } from "@mui/material";
+import { useNavigate, useParams } from "@tanstack/react-router";
 import { useSnackbar } from "notistack";
 import type { FC } from "react";
 import { type SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router";
 import { v4 } from "uuid";
 import * as z from "zod";
+import { DateTimePickerInput } from "../components/DateTimePickerInput.tsx";
 import { NumberInput } from "../components/NumberInput";
 import { SubmitButton } from "../components/SubmitButton";
 import { TextInput } from "../components/TextInput";
@@ -12,8 +14,6 @@ import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { setActiveRoll } from "../store/activeSlice";
 import { addRoll } from "../store/cameraSlice";
 import type { CameraId, Iso, RollId } from "../types";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { DateTimePickerInput } from "../components/DateTimePickerInput.tsx";
 
 type FormInputs = {
   name: string;
@@ -47,7 +47,9 @@ const schema = z.object({
 
 export const NewRollPage: FC = () => {
   const dispatch = useAppDispatch();
-  const { cameraId } = useParams<{ cameraId: CameraId }>();
+  const { cameraId } = useParams({ from: "/camera/$cameraId/roll/new" }) as {
+    cameraId: CameraId;
+  };
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const camera = useAppSelector((state) =>
@@ -83,7 +85,7 @@ export const NewRollPage: FC = () => {
       }),
     );
     dispatch(setActiveRoll(rollId));
-    navigate("/");
+    navigate({ to: "/" });
     enqueueSnackbar({ message: "Added a new roll!", variant: "success" });
   };
 

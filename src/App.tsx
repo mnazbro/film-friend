@@ -1,15 +1,15 @@
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { CssBaseline, GlobalStyles } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
+import { RouterProvider } from "@tanstack/react-router";
 import { SnackbarProvider } from "notistack";
 import type { FC, PropsWithChildren } from "react";
 import { Provider } from "react-redux";
-import { RouterProvider } from "react-router";
 import { useAppSelector } from "./hooks/redux";
 import { router } from "./router";
 import { store } from "./store/store";
 import { darkTheme, lightTheme } from "./themes";
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 export const App: FC = () => {
   return (

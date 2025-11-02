@@ -20,25 +20,24 @@ import {
   Typography,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import { Link as TanStackLink } from "@tanstack/react-router";
 import {
+  type ComponentPropsWithRef,
   type FC,
   type ReactNode,
   forwardRef,
   useCallback,
   useState,
 } from "react";
-import {
-  Link as RouterLink,
-  type LinkProps as RouterLinkProps,
-} from "react-router-dom";
 
 const title = "Film Friend";
 
-const RouterLinkWrapper = forwardRef<HTMLAnchorElement, RouterLinkProps>(
-  function Link(itemProps, ref) {
-    return <RouterLink ref={ref} {...itemProps} role={undefined} />;
-  },
-);
+const RouterLinkWrapper = forwardRef<
+  HTMLAnchorElement,
+  ComponentPropsWithRef<typeof TanStackLink>
+>(function Link(itemProps, ref) {
+  return <TanStackLink ref={ref} {...itemProps} role={undefined} />;
+});
 
 export const Navigation: FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

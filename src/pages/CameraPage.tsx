@@ -1,13 +1,15 @@
 import { Box, Chip, List, ListItemButton, Typography } from "@mui/material";
+import { useParams } from "@tanstack/react-router";
 import type { FC } from "react";
-import { useParams } from "react-router";
 import { NonIdealState } from "../components/NonIdealState";
 import { RouterLink } from "../components/RouterLink";
 import { useAppSelector } from "../hooks/redux";
 import type { CameraId } from "../types";
 
 export const CameraPage: FC = () => {
-  const { cameraId } = useParams<{ cameraId: CameraId }>();
+  const { cameraId } = useParams({ from: "/camera/$cameraId/" }) as {
+    cameraId: CameraId;
+  };
   const camera = useAppSelector((state) =>
     state.camera.cameras.find((camera) => camera.id === cameraId),
   );

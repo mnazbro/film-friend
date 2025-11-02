@@ -1,6 +1,6 @@
 import { Link } from "@mui/material";
+import { Link as TanStackLink } from "@tanstack/react-router";
 import type { FC, PropsWithChildren } from "react";
-import { Link as ReactRouterLink } from "react-router-dom";
 
 export type RouterLinkProps = PropsWithChildren<{
   to: string;
@@ -12,7 +12,7 @@ export const RouterLink: FC<RouterLinkProps> = ({ to, children }) => {
       color="inherit"
       variant="inherit"
       underline="none"
-      component={ReactRouterLink}
+      component={TanStackLink}
       to={to}
     >
       {children}
