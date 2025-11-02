@@ -15,58 +15,36 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { type FC, useEffect, useState } from "react";
-import { type SubmitHandler, useForm } from "react-hook-form";
-import * as z from "zod";
-import { NumericInput } from "../components/NumericInput";
-import { TextInput } from "../components/TextInput";
-import { zodResolver } from "@hookform/resolvers/zod";
+import type { ReactNode } from "react";
+import { useAppForm } from "../components/form/Form.tsx";
+import { z } from "zod";
+
+type FormInputs = {
+  guideNumber: number;
+  iso: number;
+  flashPower: number;
+  unit: "ft" | "m";
+};
 
 const defaultValues: FormInputs = {
-  guideNumber: "66",
-  iso: "400",
-  flashPower: "1",
+  guideNumber: 66,
+  iso: 400,
+  flashPower: 1,
   unit: "ft",
 };
 
-const schema = z.object({
-  guideNumber: z.string(),
-  iso: z.string(),
-  flashPower: z.string(),
-  unit: z.enum(["ft", "m"]),
-});
-
-type FormInputs = z.infer<typeof schema>;
-
-export const FlashPage: FC = () => {
-  const [guideNumber, setGuideNumber] = useState<number>(
-    Number(defaultValues.guideNumber),
-  );
-  const [multiplier, setMultiplier] = useState<number>(
-    calculateMultiplier({
-      iso: defaultValues.iso,
-      flashPower: defaultValues.flashPower,
-    }),
-  );
-  const { handleSubmit, control, watch } = useForm({
+export const FlashPage = (): ReactNode => {
+  const form = useAppForm({
     defaultValues,
-    resolver: zodResolver(schema),
+    validators: {
+      onChange: z.object({
+        guideNumber: z.int().positive(),
+        iso: z.int().positive(),
+        flashPower: z.number().min(0).max(1),
+        unit: z.enum(["ft", "m"]),
+      }),
+    },
   });
-  const onSubmit: SubmitHandler<FormInputs> = ({
-    iso,
-    flashPower,
-    guideNumber,
-  }) => {
-    setMultiplier(calculateMultiplier({ iso, flashPower }));
-    setGuideNumber(parseInt(guideNumber));
-  };
-
-  useEffect(() => {
-    const subscription = watch(() => handleSubmit(onSubmit)());
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [handleSubmit, watch]);
 
   return (
     <Stack spacing={1}>
@@ -74,71 +52,126 @@ export const FlashPage: FC = () => {
         Manual flash calculates distance for you. Given input, check the table
         for correct exposure.
       </Alert>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          void form.handleSubmit();
+        }}
+      >
         <Accordion defaultExpanded>
           <AccordionSummary expandIcon={<ArrowDropDownIcon />}>
-            <Stack
-              direction="row"
-              alignItems="center"
-              justifyContent="space-between"
-              width="100%"
+            <form.Subscribe
+              selector={(state) => ({
+                guideNumber: state.values.guideNumber,
+                iso: state.values.iso,
+                flashPower: state.values.flashPower,
+              })}
             >
-              <Typography>Settings</Typography>
-              <Typography
-                sx={{ color: "text.secondary" }}
-              >{`GN(${watch("guideNumber")}) / ISO(${watch("iso")}) / FP(${watch("flashPower")})`}</Typography>
-            </Stack>
+              {({ guideNumber, iso, flashPower }) => {
+                return (
+                  <Stack
+                    direction="row"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    width="100%"
+                  >
+                    <Typography>Settings</Typography>
+                    <Typography
+                      sx={{ color: "text.secondary" }}
+                    >{`GN(${guideNumber}) / ISO(${iso}) / FP(${flashPower})`}</Typography>
+                  </Stack>
+                );
+              }}
+            </form.Subscribe>
           </AccordionSummary>
           <AccordionDetails>
             <Grid container spacing={2}>
               <Grid size={6}>
-                <TextInput
-                  control={control}
-                  name="guideNumber"
-                  label="Guide Number"
-                />
+                <form.AppField name="guideNumber">
+                  {(field) => <field.NumberInput label="Guide Number" />}
+                </form.AppField>
               </Grid>
               <Grid size={6}>
-                <TextInput control={control} name="unit" label="Unit" />
+                <form.AppField name="unit">
+                  {(field) => <field.TextInput label="Unit" />}
+                </form.AppField>
               </Grid>
               <Grid size={12}>
-                <TextInput control={control} name="iso" label="ISO" />
+                <form.AppField name="iso">
+                  {(field) => <field.NumberInput label="ISO" />}
+                </form.AppField>
               </Grid>
               <Grid size={12}>
-                <NumericInput
-                  control={control}
-                  name="flashPower"
-                  label="Flash Power"
-                />
+                <form.AppField name="flashPower">
+                  {(field) => <field.NumberInput label="Flash Power" />}
+                </form.AppField>
               </Grid>
             </Grid>
           </AccordionDetails>
         </Accordion>
       </form>
       <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>F-Stop</TableCell>
-              <TableCell>{`Distance (${watch("unit")})`}</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {[1.8, 2.8, 4, 5.6, 8, 11, 16, 22].map((fstop) => {
-              return (
-                <TableRow key={fstop}>
-                  <TableCell>{fstop}</TableCell>
-                  <TableCell>
-                    {Math.round(((multiplier * guideNumber) / fstop) * 100) /
-                      100}
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
+        <form.Subscribe
+          selector={(state) => ({
+            unit: state.values.unit,
+            guideNumber: state.values.guideNumber,
+            iso: state.values.iso,
+            flashPower: state.values.flashPower,
+          })}
+        >
+          {({ unit, guideNumber, iso, flashPower }) => (
+            <OutputTable
+              unit={unit}
+              guideNumber={guideNumber}
+              iso={iso}
+              flashPower={flashPower}
+            />
+          )}
+        </form.Subscribe>
       </TableContainer>
     </Stack>
+  );
+};
+
+type OutputTableProps = {
+  unit: "ft" | "m";
+  guideNumber: number;
+  iso: number;
+  flashPower: number;
+};
+
+const OutputTable = ({
+  unit,
+  guideNumber,
+  iso,
+  flashPower,
+}: OutputTableProps) => {
+  const multiplier = calculateMultiplier({ iso, flashPower });
+  const valuesPerFstop = [1.8, 2.8, 4, 5.6, 8, 11, 16, 22].map((fstop) => {
+    return [
+      fstop,
+      Math.round(((multiplier * guideNumber) / fstop) * 100) / 100,
+    ];
+  });
+  return (
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableCell>F-Stop</TableCell>
+          <TableCell>{`Distance (${unit})`}</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {valuesPerFstop.map(([fstop, value]) => {
+          return (
+            <TableRow key={fstop}>
+              <TableCell>{fstop}</TableCell>
+              <TableCell>{value}</TableCell>
+            </TableRow>
+          );
+        })}
+      </TableBody>
+    </Table>
   );
 };
 
@@ -146,8 +179,8 @@ function calculateMultiplier({
   iso,
   flashPower,
 }: {
-  iso: string;
-  flashPower: string;
+  iso: number;
+  flashPower: number;
 }): number {
-  return (parseInt(iso) / 100) * parseFloat(flashPower);
+  return (iso / 100) * flashPower;
 }

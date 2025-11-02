@@ -1,7 +1,7 @@
 import { Box, Stack } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import type { FC, ReactNode } from "react";
-import { BackButton } from "./BackButton";
+import type { ReactNode } from "react";
+import { BackButton } from "./routing/BackButton.tsx";
 import { Navigation } from "./Navigation";
 
 export type PageProps = {
@@ -9,7 +9,10 @@ export type PageProps = {
   children: ReactNode;
 };
 
-export const PageWrapper: FC<PageProps> = ({ hasBack = true, children }) => {
+export const PageWrapper = ({
+  hasBack = true,
+  children,
+}: PageProps): ReactNode => {
   const theme = useTheme();
   return (
     <Stack

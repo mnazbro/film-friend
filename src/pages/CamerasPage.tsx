@@ -9,12 +9,12 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import type { FC } from "react";
-import { RouterLink } from "../components/RouterLink";
+import type { ReactNode } from "react";
+import { RouterLink } from "../components/routing/RouterLink.tsx";
 import { useAppSelector } from "../hooks/redux";
 import { selectVisibleCameras } from "../selectors/selectVisibleCameras";
 
-export const CamerasPage: FC = () => {
+export const CamerasPage = (): ReactNode => {
   const visibleCameras = useAppSelector(selectVisibleCameras);
   return (
     <Stack spacing={1} mt={1}>

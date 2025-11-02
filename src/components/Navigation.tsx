@@ -23,7 +23,6 @@ import { useTheme } from "@mui/material/styles";
 import { Link as TanStackLink } from "@tanstack/react-router";
 import {
   type ComponentPropsWithRef,
-  type FC,
   type ReactNode,
   forwardRef,
   useCallback,
@@ -39,7 +38,7 @@ const RouterLinkWrapper = forwardRef<
   return <TanStackLink ref={ref} {...itemProps} role={undefined} />;
 });
 
-export const Navigation: FC = () => {
+export const Navigation = (): ReactNode => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleMenuOpen = useCallback(() => {
     setIsMenuOpen(!isMenuOpen);
@@ -96,7 +95,7 @@ type DrawerContentProps = {
   onSelect: () => void;
 };
 
-const DrawerContent: FC<DrawerContentProps> = ({ onSelect }) => {
+const DrawerContent = ({ onSelect }: DrawerContentProps): ReactNode => {
   const theme = useTheme();
   return (
     <Paper elevation={0} square>
@@ -154,12 +153,12 @@ type NavigationItemProps = {
   onClick?: () => void;
 };
 
-const NavigationItem: FC<NavigationItemProps> = ({
+const NavigationItem = ({
   icon,
   children,
   url,
   onClick,
-}) => {
+}: NavigationItemProps): ReactNode => {
   return (
     <ListItem>
       <ListItemButton component={RouterLinkWrapper} to={url} onClick={onClick}>

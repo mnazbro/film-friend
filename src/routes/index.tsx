@@ -1,13 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageWrapper } from "../components/PageWrapper";
 import { HomePage } from "../pages/HomePage";
-
-const Index = () => (
-  <PageWrapper hasBack={false}>
-    <HomePage />
-  </PageWrapper>
-);
+import type { ReactNode } from "react";
 
 export const Route = createFileRoute("/")({
-  component: Index,
+  component: IndexRoute,
 });
+
+function IndexRoute(): ReactNode {
+  return (
+    <PageWrapper hasBack={false}>
+      <HomePage />
+    </PageWrapper>
+  );
+}

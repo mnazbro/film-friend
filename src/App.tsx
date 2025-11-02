@@ -3,6 +3,7 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { CssBaseline, GlobalStyles } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { RouterProvider } from "@tanstack/react-router";
+import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { SnackbarProvider } from "notistack";
 import type { FC, PropsWithChildren } from "react";
 import { Provider } from "react-redux";
@@ -25,6 +26,7 @@ export const App: FC = () => {
         <SnackbarProvider maxSnack={3} dense>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <RouterProvider router={router} />
+            <TanStackRouterDevtools router={router} />
           </LocalizationProvider>
         </SnackbarProvider>
       </ThemeWrapper>

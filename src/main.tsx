@@ -4,15 +4,18 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
 import { App as CapacitorApp } from "@capacitor/app";
+import { TanStackDevtools } from "@tanstack/react-devtools";
+import { FormDevtoolsPlugin } from "@tanstack/react-form-devtools";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App";
+import { router } from "./router.tsx";
 
 void CapacitorApp.addListener("backButton", async ({ canGoBack }) => {
   if (!canGoBack) {
     await CapacitorApp.exitApp();
   } else {
-    window.history.back();
+    router.history.back();
   }
 });
 
@@ -21,5 +24,6 @@ const root = createRoot(container!);
 root.render(
   <StrictMode>
     <App />
+    <TanStackDevtools plugins={[FormDevtoolsPlugin()]} />
   </StrictMode>,
 );

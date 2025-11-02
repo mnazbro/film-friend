@@ -2,6 +2,7 @@
 import legacy from "@vitejs/plugin-legacy";
 import react from "@vitejs/plugin-react";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
+import { devtools } from "@tanstack/devtools-vite";
 import { defineConfig } from "vite";
 
 export default defineConfig({
@@ -9,6 +10,9 @@ export default defineConfig({
     tanstackRouter({
       target: "react",
       autoCodeSplitting: true,
+    }),
+    devtools({
+      removeDevtoolsOnBuild: false,
     }),
     react(),
     legacy(),
