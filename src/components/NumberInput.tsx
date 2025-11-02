@@ -36,9 +36,11 @@ export const NumberInput = <TFieldValues extends FieldValues, TContext>({
           fullWidth
           helperText={error?.message}
           error={error != null}
-          InputProps={{
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
-            inputComponent: NumberFormat as any,
+          slotProps={{
+            input: {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              inputComponent: NumberFormat as any,
+            },
           }}
           {...field}
         />

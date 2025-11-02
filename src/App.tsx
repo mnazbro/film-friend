@@ -1,5 +1,4 @@
-import CssBaseline from "@mui/material/CssBaseline";
-import GlobalStyles from "@mui/material/GlobalStyles";
+import { CssBaseline, GlobalStyles } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { SnackbarProvider } from "notistack";
 import type { FC, PropsWithChildren } from "react";
@@ -9,7 +8,7 @@ import { useAppSelector } from "./hooks/redux";
 import { router } from "./router";
 import { store } from "./store/store";
 import { darkTheme, lightTheme } from "./themes";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 export const App: FC = () => {
