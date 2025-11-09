@@ -16,6 +16,8 @@ Film Friend is a Capacitor-based mobile application (iOS/Android) built with Rea
 - **Mobile Platform**: Capacitor 7 (iOS & Android)
 - **Build Tool**: Vite with TanStack Router plugin and legacy plugin
 - **Testing**: Vitest with React Testing Library
+- **Date Handling**: date-fns for operations, MUI X Date Pickers for UI
+- **Notifications**: Notistack for toast notifications
 
 ## Development Commands
 
@@ -75,22 +77,39 @@ The app uses Redux Toolkit with three slices:
 3. **`appSlice`** (`src/store/appSlice.ts`): Global app settings
    - Actions: `setDarkMode`
 
+**Redux State Structure:**
+```
+RootState
+├── app: AppState
+│   └── isDarkMode: boolean
+├── active: ActiveState
+│   ├── cameraId: CameraId | null
+│   └── rollId: RollId | null
+└── camera: CameraState
+    └── cameras: Camera[]
+```
+
 **Selectors** are located in `src/selectors/` and use `createAppSelector` from the store for type safety. Examples:
 - `selectActiveCamera`: Finds the active camera by joining active.cameraId with camera.cameras
 - `selectActiveRoll`: Finds the active roll within the active camera
 - `selectAtLeastOneCameraExists`: Boolean check for onboarding flow
+- `selectVisibleCameras`: Filters cameras where visible is true
 
 ### Data Model
 
-Core types are defined in `src/types.ts`:
+Core types are defined in `src/types.ts` using Zod schemas for runtime validation:
 
-- **Camera**: Contains name, film format, shutter speeds, light meter info, and an array of rolls
-- **Roll**: Film roll with ISO, frame count, load date, and an array of frames
-- **RollFrame**: Individual frame data (aperture, shutter speed, date, location, notes)
+- **Camera**: Contains name, film format, shutter speeds, light meter info, visible flag, and an array of rolls
+- **Roll**: Film roll with ISO, frame count, load date, shotAtIso (optional), visible flag, and an array of frames
+- **Frame**: Individual frame data with optional aperture (number), shutterSpeed (number), date (ISO datetime string), location, link (URL), and notes
 
-ID types are branded strings:
+ID types are branded strings (Zod template literal schemas):
 - `CameraId`: `camera_${string}`
 - `RollId`: `roll_${string}`
+
+Film formats: `"35mm"`, `"120"`, `"polaroid"`
+
+ISO values: `"25"`, `"50"`, `"80"`, `"100"`, `"160"`, `"200"`, `"400"`, `"800"`, `"1600"`, `"3200"`, `"6400"`
 
 ### Routing Structure
 
@@ -120,31 +139,37 @@ The app uses **TanStack Router** with file-based routing. Route files are locate
 
 - **Form Components**: Custom form wrapper at `src/components/form/Form.tsx` provides `useAppForm` hook
   - Form fields accessed via `form.AppField` component with render prop pattern
-  - Field components like `field.TextInput`, `field.NumberInput`, `field.BooleanInput` automatically bound to field state
+  - Field components: `field.TextInput`, `field.NumberInput`, `field.NumericInput`, `field.BooleanInput`, `field.DatePickerInput`, `field.DateTimePickerInput`, `field.SubmitButton`
+  - All field components automatically bound to field state
 - **Typed Hooks**: Use `useAppSelector` and `useAppDispatch` from `src/hooks/redux.ts` instead of raw Redux hooks for type safety
 - **Navigation**:
   - Use `RouterLink` component (wrapper around TanStack Router's Link) for internal navigation
   - Use `useNavigate` from `@tanstack/react-router` for programmatic navigation with `navigate({ to: "/path" })`
 - **Page Structure**: Pages render different screens conditionally based on state (see HomePage.tsx for pattern)
+- **Safe Area Insets**: Use `PageWrapper` which handles mobile safe areas (notches, home indicators) via CSS env variables
 
 ### Forms and Validation
 
 - Forms use **TanStack Form** with Zod validation
 - Custom hook `useAppForm` from `src/components/form/Form.tsx` wraps TanStack Form with app-specific patterns
 - Validation can be done:
-  - At form level via `validators.onChange` in `useAppForm` config
+  - At form level via `validators.onChange` in `useAppForm` config (pass a Zod schema)
   - At field level via `validators.onChange` in `form.AppField`
 - Form components use render prop pattern for type-safe field binding
 - Example:
   ```tsx
   const form = useAppForm({
     defaultValues: { name: "" },
+    validators: { onChange: z.object({ name: z.string().min(1) }) },
     onSubmit: ({ value }) => { /* submit logic */ }
   });
 
-  <form.AppField name="name">
-    {(field) => <field.TextInput label="Name" />}
-  </form.AppField>
+  <form.AppForm>
+    <form.AppField name="name">
+      {(field) => <field.TextInput label="Name" />}
+    </form.AppField>
+    <form.SubmitButton>Submit</form.SubmitButton>
+  </form.AppForm>
   ```
 
 ### DevTools
@@ -152,6 +177,7 @@ The app uses **TanStack Router** with file-based routing. Route files are locate
 Development environment includes:
 - **TanStack Router DevTools**: Rendered inside `App.tsx` with `<TanStackRouterDevtools router={router} />`
 - **TanStack Form DevTools**: Integrated via `TanStackDevtools` with `FormDevtoolsPlugin` in `src/main.tsx`
+- **Redux DevTools**: Store is compatible with Redux DevTools browser extension
 - DevTools are only included in development builds
 
 ## Code Style
@@ -175,12 +201,19 @@ Tests use Vitest with jsdom environment. Setup file is at `src/setupTests.ts`. R
 
 ## Mobile-Specific Considerations
 
-- The app uses Capacitor plugins for native functionality (Camera, Haptics, Keyboard, Preferences, Status Bar)
-- Keyboard resize mode is set to "body" in capacitor.config.ts
-- iOS scheme: FilmFriendApp
-- Android scheme: https
+- The app uses Capacitor plugins for native functionality:
+  - `@capacitor/app` - Back button handling
+  - `@capacitor/camera` - Camera access
+  - `@capacitor/haptics` - Haptic feedback
+  - `@capacitor/keyboard` - Keyboard events (resize mode: "body" in capacitor.config.ts)
+  - `@capacitor/preferences` - Local storage
+  - `@capacitor/status-bar` - Status bar control
+- iOS scheme: `FilmFriendApp`
+- Android scheme: `https`
 - Web assets build to `dist/` directory
-- Native back button integration uses TanStack Router's history API
+- Native back button integration uses TanStack Router's history API in `src/main.tsx`
+- Safe area insets handled via CSS `env(safe-area-inset-*)` variables in `PageWrapper`
+- Notifications positioned above safe area using Notistack's `anchorOrigin` prop
 
 ## Important Notes
 
