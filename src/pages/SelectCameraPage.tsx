@@ -1,26 +1,28 @@
-import Avatar from "@mui/material/Avatar";
-import List from "@mui/material/List";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
+import {
+  Avatar,
+  List,
+  ListItemAvatar,
+  ListItemButton,
+  ListItemText,
+  Stack,
+  Typography,
+} from "@mui/material";
+import { useNavigate } from "@tanstack/react-router";
 import { useSnackbar } from "notistack";
-import type { FC } from "react";
-import { useNavigate } from "react-router";
+import type { ReactNode } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { setActiveCamera } from "../store/activeSlice";
-import { Camera } from "../types";
+import type { Camera } from "../types";
 
-export const SelectCameraPage: FC = () => {
+export const SelectCameraPage = (): ReactNode => {
   const cameras = useAppSelector((state) => state.camera.cameras);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
-  const handleClick = (camera: Camera) => {
+  const handleClick = async (camera: Camera) => {
     dispatch(setActiveCamera(camera.id));
-    navigate("/");
+    await navigate({ to: "/" });
     enqueueSnackbar({
       message: `${camera.name} is now active`,
       variant: "success",

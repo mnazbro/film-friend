@@ -1,10 +1,12 @@
-import CssBaseline from "@mui/material/CssBaseline";
-import GlobalStyles from "@mui/material/GlobalStyles";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { CssBaseline, GlobalStyles } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
+import { RouterProvider } from "@tanstack/react-router";
+import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { SnackbarProvider } from "notistack";
 import type { FC, PropsWithChildren } from "react";
 import { Provider } from "react-redux";
-import { RouterProvider } from "react-router";
 import { useAppSelector } from "./hooks/redux";
 import { router } from "./router";
 import { store } from "./store/store";
@@ -22,7 +24,10 @@ export const App: FC = () => {
           }}
         />
         <SnackbarProvider maxSnack={3} dense>
-          <RouterProvider router={router} />
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <RouterProvider router={router} />
+            <TanStackRouterDevtools router={router} />
+          </LocalizationProvider>
         </SnackbarProvider>
       </ThemeWrapper>
     </Provider>

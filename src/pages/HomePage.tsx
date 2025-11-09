@@ -1,19 +1,16 @@
 import AddIcon from "@mui/icons-material/Add";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
-import { FC } from "react";
-import { RouterLink } from "../components/RouterLink";
+import { Box, Button, Stack, Typography } from "@mui/material";
+import type { ReactNode } from "react";
+import { RouterLink } from "../components/routing/RouterLink.tsx";
 import { useAppSelector } from "../hooks/redux";
 import {
   selectActiveCamera,
   selectActiveRoll,
   selectAtLeastOneCameraExists,
 } from "../selectors";
-import { Camera } from "../types";
+import type { Camera } from "../types";
 
-export const HomePage: FC = () => {
+export const HomePage = (): ReactNode => {
   const activeCamera = useAppSelector(selectActiveCamera);
   const atLeastOneCameraExists = useAppSelector(selectAtLeastOneCameraExists);
   if (activeCamera == null) {
@@ -27,7 +24,7 @@ export const HomePage: FC = () => {
   return <RollSelectScreen activeCamera={activeCamera} />;
 };
 
-const InitialScreen: FC = () => {
+const InitialScreen = (): ReactNode => {
   return (
     <Box>
       <Typography color="text.primary">Create a camera to start!</Typography>
@@ -38,7 +35,7 @@ const InitialScreen: FC = () => {
   );
 };
 
-const CameraSelectScreen: FC = () => {
+const CameraSelectScreen = (): ReactNode => {
   return (
     <Box>
       <Typography color="text.primary">Select an active camera</Typography>
@@ -53,7 +50,9 @@ type RollSelectScreenProps = {
   activeCamera: Camera;
 };
 
-const RollSelectScreen: FC<RollSelectScreenProps> = ({ activeCamera }) => {
+const RollSelectScreen = ({
+  activeCamera,
+}: RollSelectScreenProps): ReactNode => {
   const activeRoll = useAppSelector(selectActiveRoll);
   return (
     <Stack spacing={1}>

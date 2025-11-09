@@ -1,13 +1,13 @@
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import { type FC, useCallback } from "react";
-import { useNavigate } from "react-router";
+import { Box, Button } from "@mui/material";
+import { useNavigate } from "@tanstack/react-router";
+import { type ReactNode, useCallback } from "react";
+import { router } from "../../router.tsx";
 
-export const BackButton: FC = () => {
+export const BackButton = (): ReactNode => {
   const navigate = useNavigate();
-  const handleClick = useCallback(() => {
-    navigate(-1);
+  const handleClick = useCallback(async () => {
+    router.history.back();
   }, [navigate]);
   return (
     <Box>

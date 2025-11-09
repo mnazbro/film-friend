@@ -1,55 +1,65 @@
-export type CameraId = `camera_${string}`;
-export type RollId = `roll_${string}`;
+import { z } from "zod";
 
-export type FilmFormat = "35mm" | "120" | "polaroid";
-export type Iso =
-  | "25"
-  | "50"
-  | "80"
-  | "100"
-  | "160"
-  | "200"
-  | "400"
-  | "800"
-  | "1600"
-  | "3200"
-  | "6400";
+export const cameraIdSchema = z.templateLiteral([
+  "camera_",
+  z.string().nonempty(),
+]);
+export type CameraId = z.infer<typeof cameraIdSchema>;
+export const rollIdSchema = z.templateLiteral(["roll_", z.string().nonempty()]);
+export type RollId = z.infer<typeof rollIdSchema>;
 
-export type Camera = {
-  id: CameraId;
-  name: string;
-  description?: string;
-  filmFormat: FilmFormat;
-  shutterSpeeds: string[];
-  hasLightMeter: boolean;
-  notes?: string;
-  rolls: Roll[];
-  visible: boolean;
-};
+export const filmFormatSchema = z.enum(["35mm", "120", "polaroid"]);
+export type FilmFormat = z.infer<typeof filmFormatSchema>;
+export const isoSchema = z.enum([
+  "25",
+  "50",
+  "80",
+  "100",
+  "160",
+  "200",
+  "400",
+  "800",
+  "1600",
+  "3200",
+  "6400",
+]);
+export type Iso = z.infer<typeof isoSchema>;
 
-export type Roll = {
-  id: RollId;
-  name: string;
-  iso: Iso;
-  numberOfFrames: number;
-  description?: string;
-  format: FilmFormat;
-  loadDate?: string;
-  shotAtIso?: string;
-  notes?: string;
-  frames: RollFrame[];
-  visible: boolean;
-};
+export const frameSchema = z.object({
+  description: z.string(),
+  aperture: z.number().nonnegative().optional(),
+  shutterSpeed: z.number().nonnegative().optional(),
+  location: z.string().optional(), // Use GPS data
+  date: z.iso.datetime().optional(),
+  link: z.string().optional(),
+  notes: z.string().optional(),
+});
+export type Frame = z.infer<typeof frameSchema>;
 
-export type RollFrame = {
-  description?: string;
+export const rollSchema = z.object({
+  id: rollIdSchema,
+  name: z.string().nonempty(),
+  iso: isoSchema,
+  numberOfFrames: z.number().positive(),
+  description: z.string(),
+  format: filmFormatSchema,
+  loadDate: z.iso.date().optional(),
+  shotAtIso: isoSchema.optional(),
+  notes: z.string(),
+  frames: z.array(frameSchema),
+  visible: z.boolean(),
+});
+export type Roll = z.infer<typeof rollSchema>;
 
-  aperture: string;
-  shutterSpeed: string;
-  location?: string; // Use GPS data
-  date?: string;
-
-  link?: string;
-
-  notes?: string;
-};
+export const cameraSchema = z.object({
+  id: cameraIdSchema,
+  name: z.string().nonempty("Name must not be empty"),
+  description: z.string().optional(),
+  filmFormat: filmFormatSchema,
+  shutterSpeeds: z.array(z.string()),
+  hasLightMeter: z.boolean(),
+  notes: z.string().optional(),
+  rolls: z.array(rollSchema),
+  visible: z.boolean(),
+});
+export type Camera = z.infer<typeof cameraSchema>;

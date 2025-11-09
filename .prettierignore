@@ -1,3 +1,4 @@
 android
 cypress
 ios
+src/routeTree.gen.ts

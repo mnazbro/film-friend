@@ -1,95 +1,70 @@
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
+import { Alert, AlertTitle, Stack, Typography } from "@mui/material";
+import { useNavigate } from "@tanstack/react-router";
 import { useSnackbar } from "notistack";
-import type { FC } from "react";
-import { type SubmitHandler } from "react-hook-form";
-import { useNavigate, useParams } from "react-router";
+import type { ReactNode } from "react";
 import { v4 } from "uuid";
-import * as z from "zod";
-import { NumberInput } from "../components/NumberInput";
-import { SubmitButton } from "../components/SubmitButton";
-import { TextInput } from "../components/TextInput";
+import { z } from "zod";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import { useZodForm } from "../hooks/zod";
 import { setActiveRoll } from "../store/activeSlice";
 import { addRoll } from "../store/cameraSlice";
-import { CameraId, Iso, RollId } from "../types";
+import { type CameraId, type RollId, rollSchema } from "../types";
+import { useAppForm } from "../components/form/Form.tsx";
 
-type FormInputs = {
-  name: string;
-  iso: string;
-  numberOfFrames: number;
-  description: string;
-  loadDate: string;
-  shotAtIso: string;
-  notes: string;
-};
+const newRollSchema = rollSchema.omit({
+  id: true,
+});
+type FormInputs = z.infer<typeof newRollSchema>;
 
-const defaultValues = {
+const defaultValues: FormInputs = {
   name: "",
-  iso: "",
   numberOfFrames: 0,
+  iso: "100",
   description: "",
   loadDate: new Date().toISOString(),
-  shotAtIso: "",
   notes: "",
-} satisfies FormInputs;
+  format: "35mm",
+  frames: [],
+  visible: true,
+};
 
-const schema = z.object({
-  name: z.string().min(1),
-  iso: z.string(),
-  numberOfFrames: z.number().positive(),
-  description: z.string(),
-  loadDate: z.optional(z.string().datetime()),
-  shotAtIso: z.string(),
-  notes: z.string(),
-});
+type NewRollPageProps = {
+  cameraId: CameraId;
+};
 
-export const NewRollPage: FC = () => {
+export const NewRollPage = ({ cameraId }: NewRollPageProps): ReactNode => {
   const dispatch = useAppDispatch();
-  const { cameraId } = useParams<{ cameraId: CameraId }>();
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const camera = useAppSelector((state) =>
     state.camera.cameras.find((camera) => camera.id === cameraId),
   );
+
   if (camera == null) {
     // TODO: Handle this better
     throw new Error("Oh no");
   }
 
-  const { handleSubmit, control } = useZodForm<FormInputs, typeof schema>(
-    {
-      defaultValues,
+  const form = useAppForm({
+    defaultValues,
+    validators: {
+      onChange: newRollSchema,
     },
-    schema,
-  );
-  const onSubmit: SubmitHandler<FormInputs> = (data) => {
-    const rollId: RollId = `roll_${v4()}`;
-    dispatch(
-      addRoll({
-        cameraId: camera.id,
-        roll: {
-          id: rollId,
-          name: data.name,
-          iso: data.iso as Iso,
-          numberOfFrames: data.numberOfFrames,
-          description: data.description === "" ? undefined : data.description,
-          format: camera.filmFormat,
-          loadDate: data.loadDate,
-          shotAtIso: data.shotAtIso,
-          notes: data.notes === "" ? undefined : data.notes,
-          frames: [],
-          visible: true,
-        },
-      }),
-    );
-    dispatch(setActiveRoll(rollId));
-    navigate("/");
-    enqueueSnackbar({ message: "Added a new roll!", variant: "success" });
-  };
+    onSubmit: async ({ value }) => {
+      const rollId: RollId = `roll_${v4()}`;
+      dispatch(
+        addRoll({
+          cameraId: camera.id,
+          roll: {
+            ...value,
+            id: rollId,
+          },
+        }),
+      );
+      dispatch(setActiveRoll(rollId));
+      await navigate({ to: "/" });
+      enqueueSnackbar({ message: "Added a new roll!", variant: "success" });
+    },
+  });
 
   return (
     <Stack spacing={1} py={1}>
@@ -100,21 +75,54 @@ export const NewRollPage: FC = () => {
           frames that you take with that camera.
         </Typography>
       </Alert>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          void form.handleSubmit();
+        }}
+      >
         <Stack spacing={1}>
-          <TextInput control={control} name="name" label="Name" required />
-          <TextInput control={control} name="iso" label="ISO" required />
-          <NumberInput
-            control={control}
+          <form.AppField name="name">
+            {(field) => <field.TextInput label="Name" required />}
+          </form.AppField>
+
+          <form.AppField name="iso">
+            {(field) => <field.TextInput label="ISO" required />}
+          </form.AppField>
+
+          <form.AppField
             name="numberOfFrames"
-            label="Number of Frames"
-            required
-          />
-          <TextInput control={control} name="description" label="Description" />
-          <TextInput control={control} name="loadDate" label="Load Date" />
-          <TextInput control={control} name="shotAtIso" label="Shot at ISO" />
-          <TextInput control={control} name="notes" label="Notes" />
-          <SubmitButton>Create Roll</SubmitButton>
+            validators={{
+              onChange: ({ value }) => {
+                const result = z.number().positive().safeParse(value);
+                return result.success
+                  ? undefined
+                  : result.error.issues[0].message;
+              },
+            }}
+          >
+            {(field) => <field.NumberInput label="Number of Frames" required />}
+          </form.AppField>
+
+          <form.AppField name="description">
+            {(field) => <field.TextInput label="Description" />}
+          </form.AppField>
+
+          <form.AppField name="loadDate">
+            {(field) => <field.DateTimePickerInput label="Load Date" />}
+          </form.AppField>
+
+          <form.AppField name="shotAtIso">
+            {(field) => <field.TextInput label="Shot at ISO" />}
+          </form.AppField>
+
+          <form.AppField name="notes">
+            {(field) => <field.TextInput label="Notes" />}
+          </form.AppField>
+
+          <form.AppForm>
+            <form.SubmitButton>Create Roll</form.SubmitButton>
+          </form.AppForm>
         </Stack>
       </form>
     </Stack>

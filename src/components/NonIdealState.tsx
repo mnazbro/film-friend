@@ -1,13 +1,12 @@
 import ErrorIcon from "@mui/icons-material/Error";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
-import type { FC } from "react";
+import { Stack, Typography } from "@mui/material";
+import type { ReactNode } from "react";
 
 export type NonIdealStateProps = {
   title: string;
 };
 
-export const NonIdealState: FC<NonIdealStateProps> = ({ title }) => {
+export const NonIdealState = ({ title }: NonIdealStateProps): ReactNode => {
   return (
     <Stack
       direction="column"
