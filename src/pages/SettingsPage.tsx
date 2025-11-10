@@ -1,4 +1,7 @@
-import { List, ListItem, Switch, Typography } from "@mui/material";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import Switch from "@mui/material/Switch";
+import Typography from "@mui/material/Typography";
 import type { ReactNode } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { setDarkMode } from "../store/appSlice";

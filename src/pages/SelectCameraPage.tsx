@@ -1,4 +1,10 @@
-import { Avatar, List, ListItemAvatar, ListItemButton, ListItemText, Stack, Typography } from "@mui/material";
+import Avatar from "@mui/material/Avatar";
+import List from "@mui/material/List";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 import { useNavigate } from "@tanstack/react-router";
 import { useSnackbar } from "notistack";
 import type { ReactNode } from "react";

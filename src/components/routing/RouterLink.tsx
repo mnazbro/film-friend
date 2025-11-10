@@ -1,10 +1,11 @@
-import { Link } from "@mui/material";
+import Link from "@mui/material/Link";
 import { Link as TanStackLink } from "@tanstack/react-router";
-import type { PropsWithChildren, ReactNode } from "react";
+import type { ReactNode } from "react";
 
-export type RouterLinkProps = PropsWithChildren<{
+export interface RouterLinkProps {
+  children: ReactNode;
   to: string;
-}>;
+}
 
 export const RouterLink = ({ to, children }: RouterLinkProps): ReactNode => {
   return (

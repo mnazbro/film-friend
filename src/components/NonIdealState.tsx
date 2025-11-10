@@ -1,5 +1,6 @@
 import ErrorIcon from "@mui/icons-material/Error";
-import { Stack, Typography } from "@mui/material";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 import type { ReactNode } from "react";
 
 export interface NonIdealStateProps {

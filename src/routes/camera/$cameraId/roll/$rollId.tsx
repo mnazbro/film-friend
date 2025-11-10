@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
+import type { ReactNode } from "react";
 import { PageWrapper } from "../../../../components/PageWrapper";
 import { RollPage } from "../../../../pages/RollPage";
 import { cameraIdSchema, rollIdSchema } from "../../../../types.ts";
-import type { ReactNode } from "react";
 
 export const Route = createFileRoute("/camera/$cameraId/roll/$rollId")({
   component: RollRoute,

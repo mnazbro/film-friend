@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
+import type { ReactNode } from "react";
 import { PageWrapper } from "../../../components/PageWrapper";
 import { CameraPage } from "../../../pages/CameraPage";
-import type { ReactNode } from "react";
 import { cameraIdSchema } from "../../../types.ts";
 
 export const Route = createFileRoute("/camera/$cameraId/")({

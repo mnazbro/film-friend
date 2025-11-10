@@ -1,5 +1,8 @@
 import AddIcon from "@mui/icons-material/Add";
-import { Box, Button, Stack, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 import type { ReactNode } from "react";
 import { RouterLink } from "../components/routing/RouterLink.tsx";
 import { useAppSelector } from "../hooks/redux";

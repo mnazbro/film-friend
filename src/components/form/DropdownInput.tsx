@@ -2,12 +2,12 @@ import TextField from "@mui/material/TextField";
 import type { ReactNode } from "react";
 import { useFieldContext } from "./FormContext.tsx";
 
-export interface TextInputProps {
+export interface DropdownInputProps {
   label: string;
   required?: boolean;
 }
 
-export const TextInput = ({ label, required = false }: TextInputProps): ReactNode => {
+export const DropdownInput = ({ label, required = false }: DropdownInputProps): ReactNode => {
   const { state, handleChange, handleBlur } = useFieldContext<string>();
   return (
     <TextField
@@ -26,4 +26,4 @@ export const TextInput = ({ label, required = false }: TextInputProps): ReactNod
   );
 };
 
-export default TextInput;
+export default DropdownInput;

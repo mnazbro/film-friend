@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import TextField from "@mui/material/TextField";
 import type { ReactNode } from "react";
 import { forwardRef } from "react";
 import { NumericFormat, type NumericFormatProps } from "react-number-format";
@@ -40,7 +40,7 @@ interface StringNumericFormatProps {
   name: string;
 }
 
-export const StringNumericFormat = forwardRef<NumericFormatProps, StringNumericFormatProps>(
+const StringNumericFormat = forwardRef<NumericFormatProps, StringNumericFormatProps>(
   function NumericFormatCustom(props, ref) {
     const { onChange, ...other } = props;
 
@@ -61,3 +61,5 @@ export const StringNumericFormat = forwardRef<NumericFormatProps, StringNumericF
     );
   },
 );
+
+export default NumericInput;
