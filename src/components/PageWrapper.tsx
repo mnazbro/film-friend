@@ -4,24 +4,15 @@ import type { ReactNode } from "react";
 import { BackButton } from "./routing/BackButton.tsx";
 import { Navigation } from "./Navigation";
 
-export type PageProps = {
+export interface PageProps {
   hasBack?: boolean;
   children: ReactNode;
-};
+}
 
-export const PageWrapper = ({
-  hasBack = true,
-  children,
-}: PageProps): ReactNode => {
+export const PageWrapper = ({ hasBack = true, children }: PageProps): ReactNode => {
   const theme = useTheme();
   return (
-    <Stack
-      direction="column"
-      width="100dvw"
-      height="100dvh"
-      bgcolor="background.default"
-      overflow="hidden"
-    >
+    <Stack direction="column" width="100dvw" height="100dvh" bgcolor="background.default" overflow="hidden">
       <Navigation />
       <Box
         flex={1}

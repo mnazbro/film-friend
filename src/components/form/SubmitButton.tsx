@@ -9,12 +9,7 @@ export const SubmitButton = ({ children }: SubmitButtonProps): ReactNode => {
   return (
     <form.Subscribe selector={(state) => state.isSubmitting}>
       {(isSubmitting) => (
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          disabled={isSubmitting}
-        >
+        <Button type="submit" variant="contained" color="primary" disabled={isSubmitting}>
           {children}
         </Button>
       )}

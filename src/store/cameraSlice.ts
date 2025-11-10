@@ -11,21 +11,7 @@ const initialState: CameraState = {
       id: "camera_1234",
       name: "Canon AE-1",
       filmFormat: "35mm",
-      shutterSpeeds: [
-        "1000",
-        "500",
-        "250",
-        "125",
-        "60",
-        "30",
-        "15",
-        "8",
-        "4",
-        "2",
-        "1s",
-        "2s",
-        "bulb",
-      ],
+      shutterSpeeds: ["1000", "500", "250", "125", "60", "30", "15", "8", "4", "2", "1s", "2s", "bulb"],
       hasLightMeter: true,
       rolls: [
         {
@@ -110,18 +96,10 @@ export const cameraSlice = createSlice({
   name: "camera",
   initialState,
   reducers: {
-    addCamera(
-      state,
-      { payload: { camera } }: PayloadAction<{ camera: Camera }>,
-    ) {
+    addCamera(state, { payload: { camera } }: PayloadAction<{ camera: Camera }>) {
       state.cameras.push(camera);
     },
-    addRoll(
-      state,
-      {
-        payload: { cameraId, roll },
-      }: PayloadAction<{ cameraId: CameraId; roll: Roll }>,
-    ) {
+    addRoll(state, { payload: { cameraId, roll } }: PayloadAction<{ cameraId: CameraId; roll: Roll }>) {
       const camera = state.cameras.find((camera) => camera.id === cameraId);
       camera?.rolls.push(roll);
     },

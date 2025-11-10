@@ -4,15 +4,12 @@ import { forwardRef } from "react";
 import { NumericFormat, type NumericFormatProps } from "react-number-format";
 import { useFieldContext } from "./FormContext.tsx";
 
-export type NumberInputProps = {
+export interface NumberInputProps {
   label: string;
   required?: boolean;
-};
+}
 
-export const NumberInput = ({
-  label,
-  required = false,
-}: NumberInputProps): ReactNode => {
+export const NumberInput = ({ label, required = false }: NumberInputProps): ReactNode => {
   const { state, handleChange, handleBlur } = useFieldContext<number>();
   return (
     <TextField
@@ -28,11 +25,11 @@ export const NumberInput = ({
         handleChange(value);
       }}
       onBlur={handleBlur}
-      helperText={state.meta.errors.map((error) => error.message).join(", ")}
+      helperText={state.meta.errors.map((error: Error) => error.message).join(", ")}
       error={state.meta.errors.length > 0}
       slotProps={{
         input: {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-assignment
           inputComponent: NumberFormat as any,
         },
       }}
@@ -45,24 +42,22 @@ interface NumberFormatProps {
   name: string;
 }
 
-export const NumberFormat = forwardRef<NumericFormatProps, NumberFormatProps>(
-  function NumericFormatCustom(props, ref) {
-    const { onChange, ...other } = props;
+export const NumberFormat = forwardRef<NumericFormatProps, NumberFormatProps>(function NumericFormatCustom(props, ref) {
+  const { onChange, ...other } = props;
 
-    return (
-      <NumericFormat
-        {...other}
-        getInputRef={ref}
-        onValueChange={(values) => {
-          onChange({
-            target: {
-              name: props.name,
-              value: values.floatValue ?? 0,
-            },
-          });
-        }}
-        allowNegative={false}
-      />
-    );
-  },
-);
+  return (
+    <NumericFormat
+      {...other}
+      getInputRef={ref}
+      onValueChange={(values) => {
+        onChange({
+          target: {
+            name: props.name,
+            value: values.floatValue ?? 0,
+          },
+        });
+      }}
+      allowNegative={false}
+    />
+  );
+});

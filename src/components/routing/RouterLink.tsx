@@ -8,13 +8,7 @@ export type RouterLinkProps = PropsWithChildren<{
 
 export const RouterLink = ({ to, children }: RouterLinkProps): ReactNode => {
   return (
-    <Link
-      color="inherit"
-      variant="inherit"
-      underline="none"
-      component={TanStackLink}
-      to={to}
-    >
+    <Link color="inherit" variant="inherit" underline="none" component={TanStackLink} to={to}>
       {children}
     </Link>
   );

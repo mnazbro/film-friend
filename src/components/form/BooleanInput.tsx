@@ -1,21 +1,13 @@
-import {
-  FormControl,
-  FormControlLabel,
-  FormHelperText,
-  Switch,
-} from "@mui/material";
+import { FormControl, FormControlLabel, FormHelperText, Switch } from "@mui/material";
 import { type ReactNode, useId } from "react";
 import { useFieldContext } from "./FormContext.tsx";
 
-export type BooleanInputProps = {
+export interface BooleanInputProps {
   label: string;
   required?: boolean;
-};
+}
 
-export const BooleanInput = ({
-  label,
-  required = false,
-}: BooleanInputProps): ReactNode => {
+export const BooleanInput = ({ label, required = false }: BooleanInputProps): ReactNode => {
   const helperTextId = useId();
   const { state, handleChange, handleBlur } = useFieldContext<boolean>();
   return (
@@ -35,7 +27,7 @@ export const BooleanInput = ({
         label={label}
       />
       <FormHelperText id={helperTextId}>
-        {state.meta.errors.map((error) => error.message).join(", ")}
+        {state.meta.errors.map((error: Error) => error.message).join(", ")}
       </FormHelperText>
     </FormControl>
   );

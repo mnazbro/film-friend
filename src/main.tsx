@@ -11,15 +11,16 @@ import { createRoot } from "react-dom/client";
 import { App } from "./App";
 import { router } from "./router.tsx";
 
-void CapacitorApp.addListener("backButton", async ({ canGoBack }) => {
+void CapacitorApp.addListener("backButton", ({ canGoBack }) => {
   if (!canGoBack) {
-    await CapacitorApp.exitApp();
+    void CapacitorApp.exitApp();
   } else {
     router.history.back();
   }
 });
 
 const container = document.getElementById("root");
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const root = createRoot(container!);
 root.render(
   <StrictMode>

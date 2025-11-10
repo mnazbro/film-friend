@@ -5,14 +5,12 @@ import { RouterLink } from "../components/routing/RouterLink.tsx";
 import { useAppSelector } from "../hooks/redux";
 import type { CameraId } from "../types";
 
-type CameraPageProps = {
+interface CameraPageProps {
   cameraId: CameraId;
-};
+}
 
 export const CameraPage = ({ cameraId }: CameraPageProps): ReactNode => {
-  const camera = useAppSelector((state) =>
-    state.camera.cameras.find((camera) => camera.id === cameraId),
-  );
+  const camera = useAppSelector((state) => state.camera.cameras.find((camera) => camera.id === cameraId));
 
   if (camera == null) {
     return <NonIdealState title="Camera not found" />;
@@ -31,10 +29,7 @@ export const CameraPage = ({ cameraId }: CameraPageProps): ReactNode => {
           .filter((roll) => roll.visible)
           .map((roll) => {
             return (
-              <RouterLink
-                key={roll.id}
-                to={`/camera/${camera.id}/roll/${roll.id}`}
-              >
+              <RouterLink key={roll.id} to={`/camera/${camera.id}/roll/${roll.id}`}>
                 <ListItemButton key={roll.id}>
                   <Typography color="text.primary">{roll.name}</Typography>
                 </ListItemButton>

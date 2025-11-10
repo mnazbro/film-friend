@@ -46,8 +46,7 @@ export const NewCameraPage = (): ReactNode => {
   return (
     <Stack spacing={1} py={1}>
       <Alert severity="info">
-        <AlertTitle>Camera</AlertTitle>A camera allows you to associate specific
-        shots with more metadata.
+        <AlertTitle>Camera</AlertTitle>A camera allows you to associate specific shots with more metadata.
       </Alert>
       <form
         onSubmit={(e) => {
@@ -56,21 +55,13 @@ export const NewCameraPage = (): ReactNode => {
         }}
       >
         <Stack spacing={1}>
-          <form.AppField name="name">
-            {(field) => <field.TextInput label="Name" />}
-          </form.AppField>
-          <form.AppField name="description">
-            {(field) => <field.TextInput label="Description" />}
-          </form.AppField>
-          <form.AppField name="filmFormat">
-            {(field) => <field.TextInput label="Film Format" />}
-          </form.AppField>
+          <form.AppField name="name">{(field) => <field.TextInput label="Name" />}</form.AppField>
+          <form.AppField name="description">{(field) => <field.TextInput label="Description" />}</form.AppField>
+          <form.AppField name="filmFormat">{(field) => <field.TextInput label="Film Format" />}</form.AppField>
           <form.AppField name="hasLightMeter">
             {(field) => <field.BooleanInput label="Has Light meter" />}
           </form.AppField>
-          <form.AppField name="notes">
-            {(field) => <field.TextInput label="Notes" />}
-          </form.AppField>
+          <form.AppField name="notes">{(field) => <field.TextInput label="Notes" />}</form.AppField>
           <form.AppForm>
             <form.SubmitButton>Create Camera</form.SubmitButton>
           </form.AppForm>

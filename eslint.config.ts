@@ -1,21 +1,72 @@
-import js from "@eslint/js";
+// @ts-check
+import eslint from "@eslint/js";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 import pluginReact from "eslint-plugin-react";
+import * as importPlugin from "eslint-plugin-import";
+import reactHooks from "eslint-plugin-react-hooks";
+import promisePlugin from "eslint-plugin-promise";
+import eslintComments from "@eslint-community/eslint-plugin-eslint-comments/configs";
+import vitest from "@vitest/eslint-plugin";
+import prettierConfig from "eslint-config-prettier";
 import { defineConfig } from "eslint/config";
 
 export default defineConfig([
   {
-    files: ["**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
-    plugins: { js },
-    extends: ["js/recommended"],
-    languageOptions: { globals: { ...globals.browser, ...globals.node } },
+    ignores: ["./src/**/*.gen.ts"],
   },
-  tseslint.configs.recommended,
+  eslint.configs.recommended,
+  tseslint.configs.strictTypeChecked,
+  tseslint.configs.stylisticTypeChecked,
   pluginReact.configs.flat.recommended,
+  pluginReact.configs.flat["jsx-runtime"],
+  importPlugin.flatConfigs.recommended,
+  importPlugin.flatConfigs.typescript,
+  promisePlugin.configs["flat/recommended"],
+  eslintComments.recommended,
   {
-    rules: {
-      "react/react-in-jsx-scope": "off",
+    settings: {
+      react: {
+        version: "detect",
+      },
     },
   },
+  {
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+      },
+      globals: {
+        ...globals.browser,
+      },
+    },
+  },
+  {
+    files: ["**/*.test.ts", "**/*.test.tsx"],
+    plugins: {
+      vitest,
+    },
+    rules: {
+      ...vitest.configs.recommended.rules,
+    },
+  },
+  {
+    plugins: {
+      "react-hooks": reactHooks,
+    },
+    rules: {
+      ...reactHooks.configs.recommended.rules,
+      curly: "error",
+    },
+  },
+  {
+    rules: {
+      "import/named": "off",
+      "import/namespace": "off",
+      "import/default": "off",
+      "import/no-named-as-default-member": "off",
+      "import/no-unresolved": "off",
+    },
+  },
+  prettierConfig,
 ]);

@@ -3,12 +3,10 @@ import { Box, Button, Stack, Typography } from "@mui/material";
 import type { ReactNode } from "react";
 import { RouterLink } from "../components/routing/RouterLink.tsx";
 import { useAppSelector } from "../hooks/redux";
-import {
-  selectActiveCamera,
-  selectActiveRoll,
-  selectAtLeastOneCameraExists,
-} from "../selectors";
 import type { Camera } from "../types";
+import { selectActiveCamera } from "../selectors/selectActiveCamera.ts";
+import { selectAtLeastOneCameraExists } from "../selectors/selectAtLeastOneCameraExists.ts";
+import { selectActiveRoll } from "../selectors/selectActiveRoll.ts";
 
 export const HomePage = (): ReactNode => {
   const activeCamera = useAppSelector(selectActiveCamera);
@@ -46,13 +44,11 @@ const CameraSelectScreen = (): ReactNode => {
   );
 };
 
-type RollSelectScreenProps = {
+interface RollSelectScreenProps {
   activeCamera: Camera;
-};
+}
 
-const RollSelectScreen = ({
-  activeCamera,
-}: RollSelectScreenProps): ReactNode => {
+const RollSelectScreen = ({ activeCamera }: RollSelectScreenProps): ReactNode => {
   const activeRoll = useAppSelector(selectActiveRoll);
   return (
     <Stack spacing={1}>

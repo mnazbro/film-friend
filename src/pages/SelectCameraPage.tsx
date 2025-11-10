@@ -1,12 +1,4 @@
-import {
-  Avatar,
-  List,
-  ListItemAvatar,
-  ListItemButton,
-  ListItemText,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Avatar, List, ListItemAvatar, ListItemButton, ListItemText, Stack, Typography } from "@mui/material";
 import { useNavigate } from "@tanstack/react-router";
 import { useSnackbar } from "notistack";
 import type { ReactNode } from "react";
@@ -35,7 +27,12 @@ export const SelectCameraPage = (): ReactNode => {
       <Typography color="text.primary">Select a camera</Typography>
       <List>
         {cameras.map((camera) => (
-          <ListItemButton key={camera.id} onClick={() => handleClick(camera)}>
+          <ListItemButton
+            key={camera.id}
+            onClick={() => {
+              void handleClick(camera);
+            }}
+          >
             <ListItemAvatar>
               <Avatar sx={{ bgcolor: "info.dark" }}>{camera.name[0]}</Avatar>
             </ListItemAvatar>

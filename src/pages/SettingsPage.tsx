@@ -10,10 +10,7 @@ export const SettingsPage = (): ReactNode => {
     <List>
       <ListItem
         secondaryAction={
-          <Switch
-            onChange={(value) => dispatch(setDarkMode(value.target.checked))}
-            checked={isDarkMode}
-          />
+          <Switch onChange={(value) => dispatch(setDarkMode(value.target.checked))} checked={isDarkMode} />
         }
       >
         <Typography color="text.primary">Enable Dark Mode</Typography>
