@@ -19,12 +19,12 @@ import type { ReactNode } from "react";
 import { useAppForm } from "../components/form/Form.tsx";
 import { z } from "zod";
 
-type FormInputs = {
+interface FormInputs {
   guideNumber: number;
   iso: number;
   flashPower: number;
   unit: "ft" | "m";
-};
+}
 
 const defaultValues: FormInputs = {
   guideNumber: 66,
@@ -49,8 +49,7 @@ export const FlashPage = (): ReactNode => {
   return (
     <Stack spacing={1}>
       <Alert severity="info">
-        Manual flash calculates distance for you. Given input, check the table
-        for correct exposure.
+        Manual flash calculates distance for you. Given input, check the table for correct exposure.
       </Alert>
       <form
         onSubmit={(e) => {
@@ -69,16 +68,11 @@ export const FlashPage = (): ReactNode => {
             >
               {({ guideNumber, iso, flashPower }) => {
                 return (
-                  <Stack
-                    direction="row"
-                    alignItems="center"
-                    justifyContent="space-between"
-                    width="100%"
-                  >
+                  <Stack direction="row" alignItems="center" justifyContent="space-between" width="100%">
                     <Typography>Settings</Typography>
                     <Typography
                       sx={{ color: "text.secondary" }}
-                    >{`GN(${guideNumber}) / ISO(${iso}) / FP(${flashPower})`}</Typography>
+                    >{`GN(${guideNumber.toString()}) / ISO(${iso.toString()}) / FP(${flashPower.toString()})`}</Typography>
                   </Stack>
                 );
               }}
@@ -92,19 +86,13 @@ export const FlashPage = (): ReactNode => {
                 </form.AppField>
               </Grid>
               <Grid size={6}>
-                <form.AppField name="unit">
-                  {(field) => <field.TextInput label="Unit" />}
-                </form.AppField>
+                <form.AppField name="unit">{(field) => <field.TextInput label="Unit" />}</form.AppField>
               </Grid>
               <Grid size={12}>
-                <form.AppField name="iso">
-                  {(field) => <field.NumberInput label="ISO" />}
-                </form.AppField>
+                <form.AppField name="iso">{(field) => <field.NumberInput label="ISO" />}</form.AppField>
               </Grid>
               <Grid size={12}>
-                <form.AppField name="flashPower">
-                  {(field) => <field.NumberInput label="Flash Power" />}
-                </form.AppField>
+                <form.AppField name="flashPower">{(field) => <field.NumberInput label="Flash Power" />}</form.AppField>
               </Grid>
             </Grid>
           </AccordionDetails>
@@ -120,12 +108,7 @@ export const FlashPage = (): ReactNode => {
           })}
         >
           {({ unit, guideNumber, iso, flashPower }) => (
-            <OutputTable
-              unit={unit}
-              guideNumber={guideNumber}
-              iso={iso}
-              flashPower={flashPower}
-            />
+            <OutputTable unit={unit} guideNumber={guideNumber} iso={iso} flashPower={flashPower} />
           )}
         </form.Subscribe>
       </TableContainer>
@@ -133,25 +116,17 @@ export const FlashPage = (): ReactNode => {
   );
 };
 
-type OutputTableProps = {
+interface OutputTableProps {
   unit: "ft" | "m";
   guideNumber: number;
   iso: number;
   flashPower: number;
-};
+}
 
-const OutputTable = ({
-  unit,
-  guideNumber,
-  iso,
-  flashPower,
-}: OutputTableProps) => {
+const OutputTable = ({ unit, guideNumber, iso, flashPower }: OutputTableProps) => {
   const multiplier = calculateMultiplier({ iso, flashPower });
   const valuesPerFstop = [1.8, 2.8, 4, 5.6, 8, 11, 16, 22].map((fstop) => {
-    return [
-      fstop,
-      Math.round(((multiplier * guideNumber) / fstop) * 100) / 100,
-    ];
+    return [fstop, Math.round(((multiplier * guideNumber) / fstop) * 100) / 100];
   });
   return (
     <Table>
@@ -175,12 +150,6 @@ const OutputTable = ({
   );
 };
 
-function calculateMultiplier({
-  iso,
-  flashPower,
-}: {
-  iso: number;
-  flashPower: number;
-}): number {
+function calculateMultiplier({ iso, flashPower }: { iso: number; flashPower: number }): number {
   return (iso / 100) * flashPower;
 }

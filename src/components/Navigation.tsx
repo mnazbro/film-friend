@@ -21,22 +21,15 @@ import {
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { Link as TanStackLink } from "@tanstack/react-router";
-import {
-  type ComponentPropsWithRef,
-  type ReactNode,
-  forwardRef,
-  useCallback,
-  useState,
-} from "react";
+import { type ComponentPropsWithRef, type ReactNode, forwardRef, useCallback, useState } from "react";
 
 const title = "Film Friend";
 
-const RouterLinkWrapper = forwardRef<
-  HTMLAnchorElement,
-  ComponentPropsWithRef<typeof TanStackLink>
->(function Link(itemProps, ref) {
-  return <TanStackLink ref={ref} {...itemProps} role={undefined} />;
-});
+const RouterLinkWrapper = forwardRef<HTMLAnchorElement, ComponentPropsWithRef<typeof TanStackLink>>(
+  function Link(itemProps, ref) {
+    return <TanStackLink ref={ref} {...itemProps} role={undefined} />;
+  },
+);
 
 export const Navigation = (): ReactNode => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -79,21 +72,16 @@ export const Navigation = (): ReactNode => {
           </Typography>
         </Toolbar>
       </AppBar>
-      <SwipeableDrawer
-        anchor="left"
-        open={isMenuOpen}
-        onOpen={openMenu}
-        onClose={closeMenu}
-      >
+      <SwipeableDrawer anchor="left" open={isMenuOpen} onOpen={openMenu} onClose={closeMenu}>
         <DrawerContent onSelect={closeMenu} />
       </SwipeableDrawer>
     </>
   );
 };
 
-type DrawerContentProps = {
+interface DrawerContentProps {
   onSelect: () => void;
-};
+}
 
 const DrawerContent = ({ onSelect }: DrawerContentProps): ReactNode => {
   const theme = useTheme();
@@ -134,11 +122,7 @@ const DrawerContent = ({ onSelect }: DrawerContentProps): ReactNode => {
           Cameras
         </NavigationItem>
         <Divider />
-        <NavigationItem
-          url="/settings"
-          icon={<SettingsIcon />}
-          onClick={onSelect}
-        >
+        <NavigationItem url="/settings" icon={<SettingsIcon />} onClick={onSelect}>
           Settings
         </NavigationItem>
       </List>
@@ -146,19 +130,14 @@ const DrawerContent = ({ onSelect }: DrawerContentProps): ReactNode => {
   );
 };
 
-type NavigationItemProps = {
+interface NavigationItemProps {
   icon: ReactNode;
   children: ReactNode;
   url: string;
   onClick?: () => void;
-};
+}
 
-const NavigationItem = ({
-  icon,
-  children,
-  url,
-  onClick,
-}: NavigationItemProps): ReactNode => {
+const NavigationItem = ({ icon, children, url, onClick }: NavigationItemProps): ReactNode => {
   return (
     <ListItem>
       <ListItemButton component={RouterLinkWrapper} to={url} onClick={onClick}>

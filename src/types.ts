@@ -1,28 +1,13 @@
 import { z } from "zod";
 
-export const cameraIdSchema = z.templateLiteral([
-  "camera_",
-  z.string().nonempty(),
-]);
+export const cameraIdSchema = z.templateLiteral(["camera_", z.string().nonempty()]);
 export type CameraId = z.infer<typeof cameraIdSchema>;
 export const rollIdSchema = z.templateLiteral(["roll_", z.string().nonempty()]);
 export type RollId = z.infer<typeof rollIdSchema>;
 
 export const filmFormatSchema = z.enum(["35mm", "120", "polaroid"]);
 export type FilmFormat = z.infer<typeof filmFormatSchema>;
-export const isoSchema = z.enum([
-  "25",
-  "50",
-  "80",
-  "100",
-  "160",
-  "200",
-  "400",
-  "800",
-  "1600",
-  "3200",
-  "6400",
-]);
+export const isoSchema = z.enum(["25", "50", "80", "100", "160", "200", "400", "800", "1600", "3200", "6400"]);
 export type Iso = z.infer<typeof isoSchema>;
 
 export const frameSchema = z.object({

@@ -5,14 +5,14 @@ import { ThemeProvider } from "@mui/material/styles";
 import { RouterProvider } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { SnackbarProvider } from "notistack";
-import type { FC, PropsWithChildren } from "react";
+import type { ReactNode } from "react";
 import { Provider } from "react-redux";
 import { useAppSelector } from "./hooks/redux";
 import { router } from "./router";
 import { store } from "./store/store";
 import { darkTheme, lightTheme } from "./themes";
 
-export const App: FC = () => {
+export const App = (): ReactNode => {
   return (
     <Provider store={store}>
       <ThemeWrapper>
@@ -34,7 +34,7 @@ export const App: FC = () => {
   );
 };
 
-export const ThemeWrapper: FC<PropsWithChildren> = ({ children }) => {
+export const ThemeWrapper = ({ children }: { children: ReactNode }): ReactNode => {
   const isDarkMode = useAppSelector((state) => state.app.isDarkMode);
   const theme = isDarkMode ? darkTheme : lightTheme;
 
