@@ -10,17 +10,21 @@ jobs:
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       - name: Check out repository code
         uses: actions/checkout@v4
-      - name: Use Node.js 20.x
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - name: Use Node.js 22.x
         uses: actions/setup-node@v4
         with:
-          node-version: "^20"
-          cache: "npm"
+          node-version: "^22"
+          cache: "pnpm"
       - run: echo "$(node --version)"
       - name: Install Dependencies
-        run: npm ci
+        run: pnpm install
       - name: Lint repo
-        run: npm run lint
+        run: pnpm lint
       - name: Run tests
-        run: npm run test
+        run: pnpm test
       - name: Run build
-        run: npm run build
+        run: pnpm build
