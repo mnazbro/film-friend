@@ -13,7 +13,7 @@ import { defineConfig } from "eslint/config";
 
 export default defineConfig([
   {
-    ignores: ["./src/**/*.gen.ts"],
+    ignores: ["node_modules", "./dist", "./android", "./ios", "./src/**/*.gen.ts"],
   },
   eslint.configs.recommended,
   tseslint.configs.strictTypeChecked,
