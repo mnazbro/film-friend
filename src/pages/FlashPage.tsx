@@ -84,7 +84,17 @@ export const FlashPage = (): ReactNode => {
                 </form.AppField>
               </Grid>
               <Grid size={6}>
-                <form.AppField name="unit">{(field) => <field.TextInput label="Unit" />}</form.AppField>
+                <form.AppField name="unit">
+                  {(field) => (
+                    <field.SelectInput<typeof field.state.value>
+                      label="Unit"
+                      options={{
+                        ft: "Feet",
+                        m: "Meters",
+                      }}
+                    />
+                  )}
+                </form.AppField>
               </Grid>
               <Grid size={12}>
                 <form.AppField name="iso">{(field) => <field.NumberInput label="ISO" />}</form.AppField>
