@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import Button from "@mui/material/Button";
 import type { PropsWithChildren, ReactNode } from "react";
 import { useFormContext } from "./FormContext.tsx";
 
@@ -16,3 +16,5 @@ export const SubmitButton = ({ children }: SubmitButtonProps): ReactNode => {
     </form.Subscribe>
   );
 };
+
+export default SubmitButton;

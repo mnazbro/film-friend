@@ -1,4 +1,6 @@
-import { Alert, AlertTitle, Stack } from "@mui/material";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
+import Stack from "@mui/material/Stack";
 import type { ReactNode } from "react";
 import { v4 } from "uuid";
 import { z } from "zod";

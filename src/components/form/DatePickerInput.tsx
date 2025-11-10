@@ -29,3 +29,5 @@ export const DatePickerInput = ({ label, required = false }: DatePickerInputProp
     />
   );
 };
+
+export default DatePickerInput;

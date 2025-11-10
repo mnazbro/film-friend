@@ -1,4 +1,8 @@
-import { Box, Chip, List, ListItem, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import Chip from "@mui/material/Chip";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import Typography from "@mui/material/Typography";
 import { type ReactNode, useMemo } from "react";
 import { NonIdealState } from "../components/NonIdealState";
 import { useAppSelector } from "../hooks/redux";

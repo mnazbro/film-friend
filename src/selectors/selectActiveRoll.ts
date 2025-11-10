@@ -1,6 +1,6 @@
 import { createAppSelector } from "../store/store";
-import { selectActiveCamera } from "./selectActiveCamera";
 import type { Roll } from "../types.ts";
+import { selectActiveCamera } from "./selectActiveCamera";
 
 export const selectActiveRoll = createAppSelector(
   [selectActiveCamera, (state) => state.active.rollId],

@@ -1,4 +1,7 @@
-import { FormControl, FormControlLabel, FormHelperText, Switch } from "@mui/material";
+import FormControl from "@mui/material/FormControl";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormHelperText from "@mui/material/FormHelperText";
+import Switch from "@mui/material/Switch";
 import { type ReactNode, useId } from "react";
 import { useFieldContext } from "./FormContext.tsx";
 
@@ -32,3 +35,5 @@ export const BooleanInput = ({ label, required = false }: BooleanInputProps): Re
     </FormControl>
   );
 };
+
+export default BooleanInput;

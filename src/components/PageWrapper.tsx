@@ -1,4 +1,5 @@
-import { Box, Stack } from "@mui/material";
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
 import { useTheme } from "@mui/material/styles";
 import type { ReactNode } from "react";
 import { BackButton } from "./routing/BackButton.tsx";
