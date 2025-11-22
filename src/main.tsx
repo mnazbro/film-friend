@@ -19,12 +19,17 @@ void CapacitorApp.addListener("backButton", ({ canGoBack }) => {
   }
 });
 
+import { loadStoredState } from "./store/store";
+
 const container = document.getElementById("root");
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const root = createRoot(container!);
-root.render(
-  <StrictMode>
-    <App />
-    <TanStackDevtools plugins={[FormDevtoolsPlugin()]} />
-  </StrictMode>,
-);
+
+loadStoredState().then(() => {
+  root.render(
+    <StrictMode>
+      <App />
+      <TanStackDevtools plugins={[FormDevtoolsPlugin()]} />
+    </StrictMode>,
+  );
+});

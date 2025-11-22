@@ -9,11 +9,12 @@ import { useNavigate } from "@tanstack/react-router";
 import { useSnackbar } from "notistack";
 import type { ReactNode } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
+import { selectAllCameras } from "../selectors/selectAllCameras";
 import { setActiveCamera } from "../store/activeSlice";
 import type { Camera } from "../types";
 
 export const SelectCameraPage = (): ReactNode => {
-  const cameras = useAppSelector((state) => state.camera.cameras);
+  const cameras = useAppSelector(selectAllCameras);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();

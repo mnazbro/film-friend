@@ -1,8 +1,8 @@
 import { z } from "zod";
 
-export const cameraIdSchema = z.templateLiteral(["camera_", z.string().nonempty()]);
+export const cameraIdSchema = z.templateLiteral(["camera_", z.string().min(1)]);
 export type CameraId = z.infer<typeof cameraIdSchema>;
-export const rollIdSchema = z.templateLiteral(["roll_", z.string().nonempty()]);
+export const rollIdSchema = z.templateLiteral(["roll_", z.string().min(1)]);
 export type RollId = z.infer<typeof rollIdSchema>;
 
 export const filmFormatSchema = z.enum(["35mm", "120", "polaroid"]);
@@ -23,7 +23,7 @@ export type Frame = z.infer<typeof frameSchema>;
 
 export const rollSchema = z.object({
   id: rollIdSchema,
-  name: z.string().nonempty(),
+  name: z.string().min(1, "Name must not be empty"),
   iso: isoSchema,
   numberOfFrames: z.number().positive(),
   description: z.string(),
@@ -38,7 +38,7 @@ export type Roll = z.infer<typeof rollSchema>;
 
 export const cameraSchema = z.object({
   id: cameraIdSchema,
-  name: z.string().nonempty("Name must not be empty"),
+  name: z.string().min(1, "Name must not be empty"),
   description: z.string().optional(),
   filmFormat: filmFormatSchema,
   shutterSpeeds: z.array(z.string()),
