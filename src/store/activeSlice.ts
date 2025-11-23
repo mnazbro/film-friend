@@ -1,17 +1,19 @@
 import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { z } from "zod";
 import type { CameraId, RollId } from "../types";
 
-export interface ActiveState {
-  cameraId: CameraId | null;
-  rollId: RollId | null;
-}
+export const activeStateSchema = z.object({
+  cameraId: z.string().nullable(),
+  rollId: z.string().nullable(),
+});
+export type ActiveState = z.infer<typeof activeStateSchema>;
 
 const initialState: ActiveState = {
   cameraId: null,
   rollId: null,
 };
 
-export const activeSlice = createSlice({
+const activeSlice = createSlice({
   name: "active",
   initialState,
   reducers: {

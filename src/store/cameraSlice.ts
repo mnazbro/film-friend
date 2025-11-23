@@ -1,9 +1,12 @@
 import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
-import type { Camera, CameraId, Frame, Roll, RollId } from "../types";
+import { z } from "zod";
+import { cameraSchema, type Camera, type CameraId, type Frame, type Roll, type RollId } from "../types";
 
-export interface CameraState {
-  cameras: Camera[];
-}
+export const cameraStateSchema = z.object({
+  cameras: z.array(cameraSchema),
+});
+
+export type CameraState = z.infer<typeof cameraStateSchema>;
 
 const initialState: CameraState = {
   cameras: [
@@ -92,7 +95,7 @@ const initialState: CameraState = {
   ],
 };
 
-export const cameraSlice = createSlice({
+const cameraSlice = createSlice({
   name: "camera",
   initialState,
   reducers: {

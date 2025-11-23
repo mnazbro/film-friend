@@ -10,6 +10,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App";
 import { router } from "./router.tsx";
+import { loadStoredState } from "./store/store";
 
 void CapacitorApp.addListener("backButton", ({ canGoBack }) => {
   if (!canGoBack) {
@@ -19,17 +20,14 @@ void CapacitorApp.addListener("backButton", ({ canGoBack }) => {
   }
 });
 
-import { loadStoredState } from "./store/store";
-
 const container = document.getElementById("root");
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const root = createRoot(container!);
 
-loadStoredState().then(() => {
-  root.render(
-    <StrictMode>
-      <App />
-      <TanStackDevtools plugins={[FormDevtoolsPlugin()]} />
-    </StrictMode>,
-  );
-});
+await loadStoredState();
+root.render(
+  <StrictMode>
+    <App />
+    <TanStackDevtools plugins={[FormDevtoolsPlugin()]} />
+  </StrictMode>,
+);

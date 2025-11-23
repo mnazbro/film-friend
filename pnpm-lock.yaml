@@ -79,6 +79,9 @@ importers:
       '@tanstack/react-router-devtools':
         specifier: ^1.139.1
         version: 1.139.1(@tanstack/react-router@1.139.1(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(@tanstack/router-core@1.139.1)(@types/node@22.19.1)(csstype@3.2.3)(jiti@2.6.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(solid-js@1.9.10)(terser@5.44.1)(tsx@4.20.6)
+      '@types/lodash':
+        specifier: ^4.17.20
+        version: 4.17.20
       '@types/react':
         specifier: ^19.2.6
         version: 19.2.6
@@ -155,9 +158,6 @@ importers:
       '@tsconfig/vite-react':
         specifier: ^7.0.2
         version: 7.0.2
-      '@types/lodash':
-        specifier: ^4.17.20
-        version: 4.17.20
       '@types/node':
         specifier: ^22.19.1
         version: 22.19.1

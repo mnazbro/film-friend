@@ -1,15 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { z } from "zod";
 
-export interface AppState {
-  isDarkMode: boolean;
-}
+export const appStateSchema = z.object({
+  isDarkMode: z.boolean(),
+});
+export type AppState = z.infer<typeof appStateSchema>;
 
 const initialState: AppState = {
   isDarkMode: false,
 };
 
-export const appSlice = createSlice({
+const appSlice = createSlice({
   name: "app",
   initialState,
   reducers: {
