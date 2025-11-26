@@ -4,11 +4,11 @@ import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import Typography from "@mui/material/Typography";
 import type { ReactNode } from "react";
-import { NonIdealState } from "../components/NonIdealState";
 import { RouterLink } from "../components/routing/RouterLink.tsx";
 import { useAppSelector } from "../hooks/redux";
 import { selectCameraById } from "../selectors/selectCameraById";
 import type { CameraId } from "../types";
+import { ErrorState } from "../components/ErrorState.tsx";
 
 interface CameraPageProps {
   cameraId: CameraId;
@@ -18,7 +18,7 @@ export const CameraPage = ({ cameraId }: CameraPageProps): ReactNode => {
   const camera = useAppSelector((state) => selectCameraById(state, cameraId));
 
   if (camera == null) {
-    return <NonIdealState title="Camera not found" />;
+    return <ErrorState title="Camera not found" />;
   }
 
   return (

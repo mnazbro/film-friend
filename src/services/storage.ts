@@ -2,11 +2,11 @@ import { Capacitor } from "@capacitor/core";
 import { Directory, Filesystem, Encoding } from "@capacitor/filesystem";
 
 export interface StorageService {
-  saveState(key: string, state: unknown): Promise<void>;
-  loadState(key: string): Promise<unknown>;
+  saveState(key: string, state: string): Promise<void>;
+  loadState(key: string): Promise<string | undefined>;
 }
 
-class CapacitorStorageService implements StorageService {
+export class CapacitorStorageService implements StorageService {
   private async ensureFileExists(path: string) {
     try {
       await Filesystem.stat({
@@ -41,7 +41,7 @@ class CapacitorStorageService implements StorageService {
     }
   }
 
-  async loadState(key: string): Promise<unknown> {
+  async loadState(key: string): Promise<string | undefined> {
     const fileName = `${key}.json`;
 
     if (Capacitor.isNativePlatform()) {
@@ -52,7 +52,7 @@ class CapacitorStorageService implements StorageService {
           encoding: Encoding.UTF8,
         });
         if (typeof result.data === "string" && result.data) {
-          return JSON.parse(result.data);
+          return result.data;
         }
         return undefined;
       } catch (e: unknown) {
@@ -61,12 +61,7 @@ class CapacitorStorageService implements StorageService {
       }
     } else {
       const data = localStorage.getItem(key);
-      if (data) {
-        return JSON.parse(data);
-      }
-      return undefined;
+      return data ?? undefined;
     }
   }
 }
-
-export const storageService = new CapacitorStorageService();

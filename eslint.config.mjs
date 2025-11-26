@@ -69,6 +69,7 @@ export default defineConfig([
       "import/order": "error",
       "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_", varsIgnorePattern: "^_", caughtErrorsIgnorePattern: "^_" }],
       "@typescript-eslint/no-misused-promises": ["error", { checksVoidReturn: { attributes: false} }],
+      "@typescript-eslint/no-empty-function": ["off"]
     },
   },
   prettierConfig,

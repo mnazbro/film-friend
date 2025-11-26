@@ -1,6 +1,7 @@
 import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { z } from "zod";
 import type { CameraId, RollId } from "../types";
+import { loadFullState } from "./fullState";
 
 export const activeStateSchema = z.object({
   cameraId: z.string().nullable(),
@@ -23,6 +24,11 @@ const activeSlice = createSlice({
     setActiveRoll(state, action: PayloadAction<RollId | null>) {
       state.rollId = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(loadFullState, (_, { payload }) => {
+      return payload.active;
+    });
   },
 });
 

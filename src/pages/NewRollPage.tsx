@@ -7,13 +7,13 @@ import { useSnackbar } from "notistack";
 import type { ReactNode } from "react";
 import { v4 } from "uuid";
 import { z } from "zod";
-import { NonIdealState } from "../components/NonIdealState";
 import { useAppForm } from "../components/form/Form.tsx";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { selectCameraById } from "../selectors/selectCameraById";
 import { setActiveRoll } from "../store/activeSlice";
 import { addRoll } from "../store/cameraSlice";
 import { type CameraId, type RollId, rollSchema } from "../types";
+import { ErrorState } from "../components/ErrorState.tsx";
 
 const newRollSchema = rollSchema.omit({
   id: true,
@@ -68,7 +68,7 @@ export const NewRollPage = ({ cameraId }: NewRollPageProps): ReactNode => {
   });
 
   if (camera == null) {
-    return <NonIdealState title="Camera not found" />;
+    return <ErrorState title="Camera not found" />;
   }
 
   return (

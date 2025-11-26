@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { z } from "zod";
+import { loadFullState } from "./fullState";
 
 export const appStateSchema = z.object({
   isDarkMode: z.boolean(),
@@ -18,6 +19,11 @@ const appSlice = createSlice({
     setDarkMode(state, action: PayloadAction<boolean>) {
       state.isDarkMode = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(loadFullState, (_, { payload }) => {
+      return payload.app;
+    });
   },
 });
 

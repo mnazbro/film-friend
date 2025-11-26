@@ -1,6 +1,7 @@
 import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { z } from "zod";
 import { cameraSchema, type Camera, type CameraId, type Frame, type Roll, type RollId } from "../types";
+import { loadFullState } from "./fullState";
 
 export const cameraStateSchema = z.object({
   cameras: z.array(cameraSchema),
@@ -8,92 +9,7 @@ export const cameraStateSchema = z.object({
 
 export type CameraState = z.infer<typeof cameraStateSchema>;
 
-const initialState: CameraState = {
-  cameras: [
-    {
-      id: "camera_1234",
-      name: "Canon AE-1",
-      filmFormat: "35mm",
-      shutterSpeeds: ["1000", "500", "250", "125", "60", "30", "15", "8", "4", "2", "1s", "2s", "bulb"],
-      hasLightMeter: true,
-      rolls: [
-        {
-          id: "roll_1234",
-          name: "My first roll",
-          format: "35mm",
-          iso: "100",
-          numberOfFrames: 36,
-          description: "",
-          notes: "",
-          frames: [
-            {
-              aperture: 16,
-              date: "2020-01-01T00:00:00Z",
-              shutterSpeed: 100,
-              description: "",
-              link: "",
-              location: "",
-              notes: "",
-            },
-            {
-              aperture: 8,
-              date: "2020-01-01T00:00:00Z",
-              shutterSpeed: 200,
-              description: "",
-              link: "",
-              location: "",
-              notes: "",
-            },
-          ],
-          visible: true,
-        },
-        {
-          id: "roll_2345",
-          name: "My second roll",
-          format: "35mm",
-          iso: "100",
-          numberOfFrames: 36,
-          description: "",
-          notes: "",
-          frames: [
-            {
-              aperture: 16,
-              date: "2020-01-01T00:00:00Z",
-              shutterSpeed: 100,
-              description: "",
-              link: "",
-              location: "",
-              notes: "",
-            },
-          ],
-          visible: true,
-        },
-        {
-          id: "roll_8367",
-          name: "My hidden roll",
-          format: "35mm",
-          iso: "100",
-          numberOfFrames: 36,
-          description: "",
-          notes: "",
-          frames: [
-            {
-              aperture: 16,
-              date: "2020-01-01T00:00:00Z",
-              shutterSpeed: 100,
-              description: "",
-              link: "",
-              location: "",
-              notes: "",
-            },
-          ],
-          visible: false,
-        },
-      ],
-      visible: true,
-    },
-  ],
-};
+const initialState: CameraState = { cameras: [] };
 
 const cameraSlice = createSlice({
   name: "camera",
@@ -227,6 +143,11 @@ const cameraSlice = createSlice({
     setCameraState(state, { payload }: PayloadAction<CameraState>) {
       state.cameras = payload.cameras;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(loadFullState, (_, { payload }) => {
+      return payload.camera;
+    });
   },
 });
 
