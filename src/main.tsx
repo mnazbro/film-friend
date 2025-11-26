@@ -34,10 +34,11 @@ const container = document.getElementById("root");
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const root = createRoot(container!);
 
-await loadStoredState(store, storageService);
-root.render(
-  <StrictMode>
-    <App store={store} />
-    <TanStackDevtools plugins={[FormDevtoolsPlugin()]} />
-  </StrictMode>,
-);
+void loadStoredState(store, storageService).then(() => {
+  root.render(
+    <StrictMode>
+      <App store={store} />
+      <TanStackDevtools plugins={[FormDevtoolsPlugin()]} />
+    </StrictMode>,
+  );
+});
