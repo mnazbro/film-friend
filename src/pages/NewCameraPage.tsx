@@ -1,13 +1,16 @@
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import Stack from "@mui/material/Stack";
+import { useNavigate } from "@tanstack/react-router";
+import { useSnackbar } from "notistack";
 import type { ReactNode } from "react";
 import { v4 } from "uuid";
 import { z } from "zod";
+import { useAppForm } from "../components/form/Form.tsx";
 import { useAppDispatch } from "../hooks/redux";
+import { setActiveCamera } from "../store/activeSlice";
 import { addCamera } from "../store/cameraSlice";
 import { type CameraId, cameraSchema } from "../types";
-import { useAppForm } from "../components/form/Form.tsx";
 
 const newCameraSchema = cameraSchema.omit({
   id: true,
@@ -26,13 +29,15 @@ const defaultValues: FormInputs = {
 
 export const NewCameraPage = (): ReactNode => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
 
   const form = useAppForm({
     defaultValues,
     validators: {
       onChange: newCameraSchema,
     },
-    onSubmit: ({ value }) => {
+    onSubmit: async ({ value }) => {
       const id: CameraId = `camera_${v4()}`;
       dispatch(
         addCamera({
@@ -42,6 +47,9 @@ export const NewCameraPage = (): ReactNode => {
           },
         }),
       );
+      dispatch(setActiveCamera(id));
+      await navigate({ to: "/" });
+      enqueueSnackbar({ message: "Camera created successfully!", variant: "success" });
     },
   });
 
@@ -50,25 +58,25 @@ export const NewCameraPage = (): ReactNode => {
       <Alert severity="info">
         <AlertTitle>Camera</AlertTitle>A camera allows you to associate specific shots with more metadata.
       </Alert>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          void form.handleSubmit();
-        }}
-      >
-        <Stack spacing={1}>
-          <form.AppField name="name">{(field) => <field.TextInput label="Name" />}</form.AppField>
-          <form.AppField name="description">{(field) => <field.TextInput label="Description" />}</form.AppField>
-          <form.AppField name="filmFormat">{(field) => <field.TextInput label="Film Format" />}</form.AppField>
-          <form.AppField name="hasLightMeter">
-            {(field) => <field.BooleanInput label="Has Light meter" />}
-          </form.AppField>
-          <form.AppField name="notes">{(field) => <field.TextInput label="Notes" />}</form.AppField>
-          <form.AppForm>
+      <form.AppForm>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            void form.handleSubmit();
+          }}
+        >
+          <Stack spacing={1}>
+            <form.AppField name="name">{(field) => <field.TextInput label="Name" />}</form.AppField>
+            <form.AppField name="description">{(field) => <field.TextInput label="Description" />}</form.AppField>
+            <form.AppField name="filmFormat">{(field) => <field.TextInput label="Film Format" />}</form.AppField>
+            <form.AppField name="hasLightMeter">
+              {(field) => <field.BooleanInput label="Has Light meter" />}
+            </form.AppField>
+            <form.AppField name="notes">{(field) => <field.TextInput label="Notes" />}</form.AppField>
             <form.SubmitButton>Create Camera</form.SubmitButton>
-          </form.AppForm>
-        </Stack>
-      </form>
+          </Stack>
+        </form>
+      </form.AppForm>
     </Stack>
   );
 };

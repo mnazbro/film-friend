@@ -1,4 +1,5 @@
-android
-cypress
-ios
+android/
+cypress/
+ios/
 src/routeTree.gen.ts
+dist/

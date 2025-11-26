@@ -10,10 +10,14 @@ import type { ReactNode } from "react";
 import { Provider } from "react-redux";
 import { useAppSelector } from "./hooks/redux";
 import { router } from "./router";
-import { store } from "./store/store";
 import { darkTheme, lightTheme } from "./themes";
+import type { AppStore } from "./store/store";
 
-export const App = (): ReactNode => {
+interface AppProps {
+  store: AppStore;
+}
+
+function App({ store }: AppProps): ReactNode {
   return (
     <Provider store={store}>
       <ThemeWrapper>
@@ -33,9 +37,9 @@ export const App = (): ReactNode => {
       </ThemeWrapper>
     </Provider>
   );
-};
+}
 
-export const ThemeWrapper = ({ children }: { children: ReactNode }): ReactNode => {
+const ThemeWrapper = ({ children }: { children: ReactNode }): ReactNode => {
   const isDarkMode = useAppSelector((state) => state.app.isDarkMode);
   const theme = isDarkMode ? darkTheme : lightTheme;
 
@@ -46,3 +50,5 @@ export const ThemeWrapper = ({ children }: { children: ReactNode }): ReactNode =
     </ThemeProvider>
   );
 };
+
+export default App;

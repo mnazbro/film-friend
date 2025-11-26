@@ -7,6 +7,7 @@ import { NumericInput } from "./NumericInput.tsx";
 import { NumberInput } from "./NumberInput.tsx";
 import { DatePickerInput } from "./DatePickerInput.tsx";
 import { DateTimePickerInput } from "./DateTimePickerInput.tsx";
+import { SelectInput } from "./SelectInput.tsx";
 
 export const { useAppForm, withForm, withFieldGroup } = createFormHook({
   fieldComponents: {
@@ -16,6 +17,7 @@ export const { useAppForm, withForm, withFieldGroup } = createFormHook({
     NumberInput,
     DatePickerInput,
     DateTimePickerInput,
+    SelectInput,
   },
   formComponents: {
     SubmitButton,
