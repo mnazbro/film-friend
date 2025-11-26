@@ -41,4 +41,5 @@ void loadStoredState(store, storageService).then(() => {
       <TanStackDevtools plugins={[FormDevtoolsPlugin()]} />
     </StrictMode>,
   );
+  return;
 });
