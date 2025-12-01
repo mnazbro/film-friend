@@ -1,5 +1,10 @@
 {
-  "extends": ["@tsconfig/node22/tsconfig", "@tsconfig/vite-react/tsconfig"],
-  "compilerOptions": {},
-  "include": ["src"]
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }

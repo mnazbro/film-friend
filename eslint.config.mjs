@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-check
 import eslint from "@eslint/js";
 import globals from "globals";
@@ -5,7 +6,9 @@ import tseslint from "typescript-eslint";
 import pluginReact from "eslint-plugin-react";
 import * as importPlugin from "eslint-plugin-import";
 import reactHooks from "eslint-plugin-react-hooks";
+// @ts-expect-error
 import promisePlugin from "eslint-plugin-promise";
+// @ts-expect-error
 import eslintComments from "@eslint-community/eslint-plugin-eslint-comments/configs";
 import vitest from "@vitest/eslint-plugin";
 import prettierConfig from "eslint-config-prettier";
@@ -22,7 +25,9 @@ export default defineConfig([
   pluginReact.configs.flat["jsx-runtime"],
   importPlugin.flatConfigs.recommended,
   importPlugin.flatConfigs.typescript,
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   promisePlugin.configs["flat/recommended"],
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   eslintComments.recommended,
   {
     settings: {
@@ -67,10 +72,15 @@ export default defineConfig([
       "import/no-named-as-default-member": "off",
       "import/no-unresolved": "off",
       "import/order": "error",
-      "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_", varsIgnorePattern: "^_", caughtErrorsIgnorePattern: "^_" }],
-      "@typescript-eslint/no-misused-promises": ["error", { checksVoidReturn: { attributes: false} }],
-      "@typescript-eslint/no-empty-function": ["off"]
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { argsIgnorePattern: "^_", varsIgnorePattern: "^_", caughtErrorsIgnorePattern: "^_" },
+      ],
+      "@typescript-eslint/no-misused-promises": ["error", { checksVoidReturn: { attributes: false } }],
+      "@typescript-eslint/no-empty-function": ["off"],
     },
   },
   prettierConfig,
 ]);
+
+/* eslint-enable @typescript-eslint/ban-ts-comment */
