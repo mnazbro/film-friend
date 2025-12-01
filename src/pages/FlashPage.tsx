@@ -17,6 +17,21 @@ import type { ReactNode } from "react";
 import { z } from "zod";
 import { useAppForm } from "../components/form/Form.tsx";
 
+const STANDARD_F_STOPS = [1.8, 2.8, 4, 5.6, 8, 11, 16, 22] as const;
+
+interface FlashCalculation {
+  aperture: number;
+  distance: number;
+}
+
+function calculateFlashDistance(aperture: number, guideNumber: number, multiplier: number): number {
+  return Math.round(((multiplier * guideNumber) / aperture) * 100) / 100;
+}
+
+function calculateMultiplier({ iso, flashPower }: { iso: number; flashPower: number }): number {
+  return (iso / 100) * flashPower;
+}
+
 interface FormInputs {
   guideNumber: number;
   iso: number;
@@ -84,7 +99,17 @@ export const FlashPage = (): ReactNode => {
                 </form.AppField>
               </Grid>
               <Grid size={6}>
-                <form.AppField name="unit">{(field) => <field.TextInput label="Unit" />}</form.AppField>
+                <form.AppField name="unit">
+                  {(field) => (
+                    <field.SelectInput<typeof field.state.value>
+                      label="Unit"
+                      options={{
+                        ft: "Feet",
+                        m: "Meters",
+                      }}
+                    />
+                  )}
+                </form.AppField>
               </Grid>
               <Grid size={12}>
                 <form.AppField name="iso">{(field) => <field.NumberInput label="ISO" />}</form.AppField>
@@ -123,9 +148,10 @@ interface OutputTableProps {
 
 const OutputTable = ({ unit, guideNumber, iso, flashPower }: OutputTableProps) => {
   const multiplier = calculateMultiplier({ iso, flashPower });
-  const valuesPerFstop = [1.8, 2.8, 4, 5.6, 8, 11, 16, 22].map((fstop) => {
-    return [fstop, Math.round(((multiplier * guideNumber) / fstop) * 100) / 100];
-  });
+  const flashCalculations: FlashCalculation[] = STANDARD_F_STOPS.map((aperture) => ({
+    aperture,
+    distance: calculateFlashDistance(aperture, guideNumber, multiplier),
+  }));
   return (
     <Table>
       <TableHead>
@@ -135,11 +161,11 @@ const OutputTable = ({ unit, guideNumber, iso, flashPower }: OutputTableProps) =
         </TableRow>
       </TableHead>
       <TableBody>
-        {valuesPerFstop.map(([fstop, value]) => {
+        {flashCalculations.map(({ aperture, distance }) => {
           return (
-            <TableRow key={fstop}>
-              <TableCell>{fstop}</TableCell>
-              <TableCell>{value}</TableCell>
+            <TableRow key={aperture}>
+              <TableCell>{aperture}</TableCell>
+              <TableCell>{distance}</TableCell>
             </TableRow>
           );
         })}
@@ -147,7 +173,3 @@ const OutputTable = ({ unit, guideNumber, iso, flashPower }: OutputTableProps) =
     </Table>
   );
 };
-
-function calculateMultiplier({ iso, flashPower }: { iso: number; flashPower: number }): number {
-  return (iso / 100) * flashPower;
-}

@@ -4,9 +4,9 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Typography from "@mui/material/Typography";
 import { type ReactNode, useMemo } from "react";
-import { NonIdealState } from "../components/NonIdealState";
 import { useAppSelector } from "../hooks/redux";
 import type { CameraId, RollId } from "../types";
+import { ErrorState } from "../components/ErrorState.tsx";
 
 interface RollPageProps {
   cameraId: CameraId;
@@ -20,11 +20,7 @@ export const RollPage = ({ cameraId, rollId }: RollPageProps): ReactNode => {
   }, [camera, rollId]);
 
   if (roll == null) {
-    return (
-      <>
-        <NonIdealState title="Roll not found" />
-      </>
-    );
+    return <ErrorState title="Roll not found" />;
   }
 
   return (
