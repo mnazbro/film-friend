@@ -4,5 +4,5 @@
     "composite": true,
     "allowJs": true
   },
-  "include": ["vite.config.ts", "capacitor.config.ts", "eslint.config.mjs"]
+  "include": ["vite.config.ts", "capacitor.config.ts"]
 }
