@@ -33,3 +33,5 @@ yarn-error.log*
 **/fastlane/Preview.xml
 **/fastlane/screenshots
 **/fastlane/test_output
+
+/build/
