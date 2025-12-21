@@ -210,6 +210,7 @@ Run `pnpm lint` before committing to catch issues.
 ## Testing
 
 Tests use Vitest with jsdom environment configured in `vite.config.ts`:
+
 - Setup file: `src/setupTests.ts`
 - Timezone: UTC (for consistent date handling)
 - Mocks are automatically cleared, reset, and restored between tests
@@ -234,6 +235,7 @@ Tests use Vitest with jsdom environment configured in `vite.config.ts`:
 ## State Persistence
 
 The app persists Redux state to device storage using `CapacitorStorageService` (`src/services/storage.ts`):
+
 - **Native platforms**: Uses Capacitor Filesystem API to write state as JSON to app's Data directory
 - **Web platform**: Falls back to localStorage
 - State is automatically saved on changes and loaded on app startup

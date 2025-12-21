@@ -2,6 +2,7 @@
   "extends": ["@tsconfig/node22/tsconfig", "@tsconfig/vite-react/tsconfig"],
   "compilerOptions": {
     "composite": true,
+    "noEmit": false,
     "emitDeclarationOnly": true,
     "outDir": "build"
   },
