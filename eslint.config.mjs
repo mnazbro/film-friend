@@ -16,7 +16,7 @@ import { defineConfig } from "eslint/config";
 
 export default defineConfig([
   {
-    ignores: ["node_modules", "./dist", "./android", "./ios", "./src/**/*.gen.ts"],
+    ignores: ["node_modules", "./dist", "./android", "./ios", "./src/**/*.gen.ts", "./build"],
   },
   eslint.configs.recommended,
   tseslint.configs.strictTypeChecked,

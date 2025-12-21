@@ -3,3 +3,4 @@ cypress/
 ios/
 src/routeTree.gen.ts
 dist/
+build/
