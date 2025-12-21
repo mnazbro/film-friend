@@ -1,4 +1,10 @@
 {
   "extends": ["@tsconfig/node22/tsconfig", "@tsconfig/node-ts/tsconfig"],
+  "compilerOptions": {
+    "composite": true,
+    "allowJs": true,
+    "emitDeclarationOnly": true,
+    "outDir": "build"
+  },
   "include": ["vite.config.ts", "capacitor.config.ts", "eslint.config.mjs"]
 }
